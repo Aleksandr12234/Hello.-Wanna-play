@@ -6,39 +6,47 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 import com.one.Structure.Manager;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 
 public class KeyBoardInput implements InputProcessor {
-    //Настройка
-    boolean[] keysPressed=new boolean[6];
-    boolean[] keysClamped=new boolean[6];
-    boolean[] keysReleased=new boolean[6];
+    LinkedList<Integer> keysPressed =new LinkedList<>();
+    LinkedList<Integer> keysClamped =new LinkedList<>();
+    LinkedList<Integer> keysReleased =new LinkedList<>();
+
+    LinkedList<Integer> mousePressed=new LinkedList<>();
+    LinkedList<Integer> mouseClamped=new LinkedList<>();
+    LinkedList<Integer> mouseReleased=new LinkedList<>();
 
     public KeyBoardInput(){
-        Arrays.fill(keysPressed, false);
-        Arrays.fill(keysClamped, false);
-        Arrays.fill(keysReleased, false);
-
         Gdx.input.setInputProcessor(this);
     }
 
     //обновления
     public void update(){
-        Arrays.fill(keysPressed, false);
-        Arrays.fill(keysReleased, false);
+        keysPressed.clear();
+        keysReleased.clear();
+        mousePressed.clear();
+        mouseReleased.clear();
     }
 
     //геттеры
     public boolean getKeysPressed(int i){
-        return keysPressed[i];
+        return keysPressed.contains(i);
     }
-
     public boolean getKeysClamped(int i) {
-        return keysClamped[i];
+        return keysClamped.contains(i);
     }
-
     public boolean getKeysReleased(int i) {
-        return keysReleased[i];
+        return keysReleased.contains(i);
+    }
+    public boolean getMousePressed(int i){
+        return mousePressed.contains(i);
+    }
+    public boolean getMouseClamped(int i) {
+        return mouseClamped.contains(i);
+    }
+    public boolean getMouseReleased(int i) {
+        return mouseReleased.contains(i);
     }
 
     public Vector3 getMousePosition(){
@@ -50,73 +58,29 @@ public class KeyBoardInput implements InputProcessor {
     //Обработка нажатий
     @Override
     public boolean keyDown(int i) { //вызывается при нажатии клавиши
-        switch (i) {
-            case Input.Keys.W:
-                keysPressed[0]=true; // Движение вверх
-                keysClamped[0]=true;
-                break;
-            case Input.Keys.S:
-                keysPressed[1]=true; // Движение вниз
-                keysClamped[1]=true;
-                break;
-            case Input.Keys.A:
-                keysPressed[2]=true; // Движение влево
-                keysClamped[2]=true;
-                break;
-            case Input.Keys.D:
-                keysPressed[3]=true; // Движение вправо
-                keysClamped[3]=true;
-                break;
-            case Input.Keys.SPACE:
-                keysPressed[4]=true; //особое умение
-                keysClamped[4]=true;
-                break;
-        }
+        keysPressed.add(i);
+        if(!keysClamped.contains(i)) keysClamped.add(i);
         return true;
     }
 
     @Override
     public boolean keyUp(int i) { //при отпускании клавиши
-        switch (i) {
-            case Input.Keys.W:
-                keysReleased[0]=true; // Движение вверх
-                keysClamped[0]=false;
-                break;
-            case Input.Keys.S:
-                keysReleased[1]=true; // Движение вниз
-                keysClamped[1]=false;
-                break;
-            case Input.Keys.A:
-                keysReleased[2]=true; // Движение влево
-                keysClamped[2]=false;
-                break;
-            case Input.Keys.D:
-                keysReleased[3]=true; // Движение вправо
-                keysClamped[3]=false;
-                break;
-            case Input.Keys.SPACE:
-                keysReleased[4]=true; //особое умение
-                keysClamped[4]=false;
-                break;
-        }
+        keysReleased.add(i);
+        keysClamped.remove((Integer) i);
         return true;
     }
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) { //При нажатии кнопки мыши
-        if(button == Input.Buttons.LEFT) {
-            keysClamped[5] = true;
-            keysPressed[5] = true;
-        }
+        mousePressed.add(button);
+        if(!mouseClamped.contains(button)) mouseClamped.add(button);
         return true;
     }
 
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) { //При отпускании кнопки мыши
-        if(button == Input.Buttons.LEFT) {
-            keysClamped[5] = false;
-            keysReleased[5] = true;
-        }
+        mouseReleased.add(button);
+        mouseClamped.remove((Integer) button);
         return true;
     }
 

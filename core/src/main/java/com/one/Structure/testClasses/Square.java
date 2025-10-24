@@ -18,21 +18,13 @@ public class Square extends BasicObject {
 
         position.x=x;
         position.y=y;
-        sprite=new Sprite(manager.texturesLoader.loadTexture("test/libgdx.png"));
+        sprite=new Sprite(manager.texturesLoader.loadTexture("libgdx.png"));
         this.speed=speed;
     }
 
     @Override
     public void doLogic(){
         collision.updateStatus();
-
-        //position.x+=speed;
-//        if(position.x>200){
-//            dispose=true;
-//            collision.dispose=true;
-//            manager.changeScene(new TestScene());
-//            //manager.addObject(new Square(position.x-50, position.y, speed));
-//        }
     }
 
     @Override

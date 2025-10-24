@@ -19,7 +19,7 @@ public class Logic {
         //Можно будет разделить на потоки
         for (BasicObject i : activeObjects) {
             if(i.dispose){
-                manager.deleteObject(i);
+                manager.activeScene.removeObject(i);
                 continue;
             }
             i.doLogic();

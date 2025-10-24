@@ -1,7 +1,6 @@
 package com.one.Structure;
 
 import com.badlogic.gdx.Screen;
-import com.one.Project.Scenes.GameplayTestScene;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Scenes.EmptyScene;
 import com.one.Structure.Scenes.Scene;
@@ -10,6 +9,7 @@ import com.one.Structure.collision.UpdateCollisions;
 import com.one.Structure.taskPerformers.Drawer;
 import com.one.Structure.taskPerformers.Logic;
 import com.one.Structure.taskPerformers.TexturesLoader;
+import com.one.Structure.testClasses.TestScene;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class Manager implements Screen {
     public static KeyBoardInput user=new KeyBoardInput();
 
     //Переменные для сцен
-    private Scene activeScene;
+    public Scene activeScene;
     private ArrayList<BasicObject> activeObjects = new ArrayList<>();
 
     //"рычаги" управления
@@ -42,7 +42,7 @@ public class Manager implements Screen {
         Drawer.camera=serviceObjects.camera;
 
         //сюда вписываем первую сцену
-        changeScene(new GameplayTestScene());
+        changeScene(new TestScene());
     }
 
     //работа с объектами
@@ -64,16 +64,6 @@ public class Manager implements Screen {
         isActiveObjectsChange=true;
     }
 
-    public void deleteObject(BasicObject object){
-        activeScene.removeObject(object);
-        isActiveObjectsChange=true;
-    }
-
-    public void updateActiveObjects(){
-        if(isActiveObjectsChange)activeObjects=activeScene.getObjects();
-        isActiveObjectsChange=false;
-    }
-
     //рендер и тп
     @Override
     public void render(float v) {
@@ -83,6 +73,11 @@ public class Manager implements Screen {
         updateActiveObjects();
 
         user.update();
+    }
+
+    private void updateActiveObjects(){
+        if(isActiveObjectsChange)activeObjects=activeScene.getObjects();
+        isActiveObjectsChange=false;
     }
 
     @Override
