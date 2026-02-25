@@ -8,18 +8,15 @@ import com.one.Structure.collision.Objects.PhysicalObject;
 public class Square extends BasicObject {
     private final Sprite sprite;
 
-    private final PhysicalObject collision=new PhysicalObject(this);
+    private final PhysicalObject collision=new PhysicalObject(this, true);
 
     float speed;
 
-    public Square(float x, float y, float speed){
-        size.x=50;
-        size.y=50;
+    public Square(float x, float y, float width, float height){
+        size.set(width, height);
 
-        position.x=x;
-        position.y=y;
-        sprite=new Sprite(manager.texturesLoader.loadTexture("libgdx.png"));
-        this.speed=speed;
+        position.set(x,y);
+        sprite=new Sprite(manager.texturesLoader.loadTexture("test/libgdx.png"));
     }
 
     @Override

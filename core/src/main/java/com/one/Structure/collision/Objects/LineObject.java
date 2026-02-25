@@ -1,27 +1,24 @@
 package com.one.Structure.collision.Objects;
 
 import com.one.Structure.Objects.BasicObject;
+import com.one.Structure.collision.Figures.FigureInterface.LineInterface;
+import com.one.Structure.collision.Figures.FigureInterface.RectInterface;
 import com.one.Structure.collision.Figures.LineCollision;
 import com.one.Structure.collision.Figures.RectCollision;
 
-public class LineObject extends CollisionObject{
-    private final LineCollision collision;
+public class LineObject<T extends BasicObject> extends CollisionObject<T>{
+    protected final LineCollision<LineObject<T>> collision;
 
-    public LineObject(BasicObject master) {
+    public LineObject(T master, boolean isStatic) {
         super(master);
 
-        position=master.position;
-        size=master.size;
-        rotate=master.rotate;
-
-        collision=new LineCollision(this);
-        manager.updateCollisions.addCollision(collision);
+        collision=new LineCollision<>(this);
+        if(!isStatic)manager.updateCollisions.addActiveCollision(collision);
+        else manager.updateCollisions.addStaticCollision(collision);
     }
 
-    public void updateStatus(){dispose= master.dispose;}
-
     @Override
-    public void action(LineCollision lineCollision) {}
+    public void action(LineInterface lineCollision) {}
     @Override
-    public void action(RectCollision rectCollision) {}
+    public void action(RectInterface rectCollision) {}
 }

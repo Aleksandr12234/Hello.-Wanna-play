@@ -1,64 +1,69 @@
 package com.one.Structure.collision;
 
 import com.one.Structure.Manager;
+import com.one.Structure.collision.Figures.FigureCollision;
+import com.one.Structure.collision.Figures.FigureInterface.LineInterface;
+import com.one.Structure.collision.Figures.FigureInterface.RectInterface;
 import com.one.Structure.collision.Figures.LineCollision;
 import com.one.Structure.collision.Figures.RectCollision;
 
 import java.util.ArrayList;
 
 public class UpdateCollisions {
-    ArrayList<RectCollision> rectCollisions=new ArrayList<>();
-    ArrayList<LineCollision> lineCollisions=new ArrayList<>();
+    ArrayList<FigureCollision> activeCollision=new ArrayList<>();
+    ArrayList<FigureCollision> staticCollision=new ArrayList<>();
 
     public void update(){
-        for (int i=rectCollisions.size()-1; i>=0; i--) {
-            RectCollision one=rectCollisions.get(i);
-            if(one.master.dispose){
-                rectCollisions.remove(i);
+        for(int i=activeCollision.size()-1; i>=0; i--){
+            FigureCollision one=activeCollision.get(i);
+            if(one.getMaster().getDispose()){
+                activeCollision.remove(i);
                 continue;
             }
             one.update();
 
-            //rect - rect
-            for(int j=rectCollisions.size()-1; j>=0; j--){
-                if(i==j)continue;
-                RectCollision two = rectCollisions.get(j);
+            for (int j = i-1; j >=0 ; j--) {
+                FigureCollision two= activeCollision.get(j);
+                if(two.getMaster().getDispose())continue;
                 two.update();
-
                 if(one.handlingCollision(two)){
-                    one.master.action(two);
-                    //two.master.action(one);
+                    action(one, two);
                 }
             }
 
-            //rect - line
-            for (int j= lineCollisions.size()-1; j>=0; j--) {
-                LineCollision two=lineCollisions.get(j);
-                if(two.master.dispose){
-                    lineCollisions.remove(j);
+            for (int j = staticCollision.size()-1; j>=0 ; j--) {
+                FigureCollision two = staticCollision.get(j);
+                if(two.getMaster().getDispose()){
+                    staticCollision.remove(j);
                     continue;
                 }
-
                 two.update();
                 if(one.handlingCollision(two)){
-                    one.master.action(two);
-                    two.master.action(one);
+                    action(one, two);
                 }
             }
         }
+
+    }
+
+    private void action(FigureCollision one, FigureCollision two){
+        if(two instanceof RectInterface)one.getMaster().action((RectInterface) two);
+        else one.getMaster().action((LineInterface) two);
+
+        if(one instanceof RectCollision) two.getMaster().action((RectCollision) one);
+        else two.getMaster().action((LineCollision) one);
     }
 
     public void drawCollisions(){
-        for (RectCollision i : rectCollisions) {
+        for (FigureCollision i : staticCollision) {
             i.draw(Manager.serviceObjects.shapeDrawer);
         }
 
-        for (LineCollision i : lineCollisions) {
+        for (FigureCollision i : activeCollision) {
             i.draw(Manager.serviceObjects.shapeDrawer);
         }
-
     }
 
-    public void addCollision(RectCollision rectCollision){rectCollisions.add(rectCollision);}
-    public void addCollision(LineCollision lineCollision){lineCollisions.add(lineCollision);}
+    public void addStaticCollision(FigureCollision collision){staticCollision.add(collision);}
+    public void addActiveCollision(FigureCollision collision){activeCollision.add(collision);}
 }

@@ -7,6 +7,7 @@ import com.one.Structure.Objects.BasicObject;
 import java.util.ArrayList;
 
 public class Logic {
+    public static boolean freeze=false;
     private final Manager manager;
 
     public Logic(Manager manager){
@@ -18,7 +19,11 @@ public class Logic {
 
         //Можно будет разделить на потоки
         for (BasicObject i : activeObjects) {
-            if(i.dispose){
+            if(freeze){
+                i.doOnFreeze();
+                continue;
+            }
+            if(i.getDispose()){
                 manager.activeScene.removeObject(i);
                 continue;
             }

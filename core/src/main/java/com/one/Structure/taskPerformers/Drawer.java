@@ -13,6 +13,7 @@ public class Drawer {
     public static Manager manager;
     public static SpriteBatch batch;
     public static OrthographicCamera camera;
+    public static boolean drawCollision=false;
 
     public static void setBackgroundColor(float r, float g, float b){
         red=r;
@@ -29,7 +30,7 @@ public class Drawer {
         for (BasicObject i : basicObjects) {
             i.draw();
         }
-        //manager.updateCollisions.drawCollisions();
+        if(drawCollision)manager.updateCollisions.drawCollisions();
         batch.end();
     }
 

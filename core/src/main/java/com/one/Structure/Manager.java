@@ -1,6 +1,8 @@
 package com.one.Structure;
 
 import com.badlogic.gdx.Screen;
+import com.one.Project.Scenes.GameplayTestScene;
+import com.one.Project.Scenes.MainMenu;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Scenes.EmptyScene;
 import com.one.Structure.Scenes.Scene;
@@ -9,20 +11,20 @@ import com.one.Structure.collision.UpdateCollisions;
 import com.one.Structure.taskPerformers.Drawer;
 import com.one.Structure.taskPerformers.Logic;
 import com.one.Structure.taskPerformers.TexturesLoader;
-import com.one.Structure.testClasses.TestScene;
 
 import java.util.ArrayList;
 
 public class Manager implements Screen {
     //настройки
     public static ServiceObjects serviceObjects;
+    public static KeyBoardInput user=new KeyBoardInput();
     public TexturesLoader texturesLoader=new TexturesLoader();
     public UpdateCollisions updateCollisions=new UpdateCollisions();
     private final Logic logic=new Logic(this);
-    public static KeyBoardInput user=new KeyBoardInput();
 
     //Переменные для сцен
     public Scene activeScene;
+    private Scene newScene;
     private ArrayList<BasicObject> activeObjects = new ArrayList<>();
 
     //"рычаги" управления
@@ -42,26 +44,26 @@ public class Manager implements Screen {
         Drawer.camera=serviceObjects.camera;
 
         //сюда вписываем первую сцену
-        changeScene(new TestScene());
+        changeScene(new MainMenu());
     }
 
     //работа с объектами
     public void changeScene(Scene scene){
+        newScene=scene;
+    }
+
+    private void changeScene(){
         texturesLoader.dispose();
         texturesLoader=new TexturesLoader();
 
         updateCollisions=new UpdateCollisions();
 
-        activeScene=scene;
-        scene.setup();
-        activeObjects=scene.getObjects();
+        activeScene=newScene;
+        newScene.setup();
+        activeObjects=newScene.getObjects();
 
         isActiveObjectsChange=false;
-    }
-
-    public void addObject(BasicObject object){
-        activeScene.addObject(object);
-        isActiveObjectsChange=true;
+        newScene=null;
     }
 
     //рендер и тп
@@ -70,9 +72,13 @@ public class Manager implements Screen {
         logic.update(activeObjects);
         updateCollisions.update();
         Drawer.draw(activeObjects);
-        updateActiveObjects();
 
         user.update();
+        if(newScene!=null){
+            changeScene();
+            return;
+        }
+        updateActiveObjects();
     }
 
     private void updateActiveObjects(){

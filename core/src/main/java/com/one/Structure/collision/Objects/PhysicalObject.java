@@ -2,49 +2,35 @@ package com.one.Structure.collision.Objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.one.Structure.Objects.BasicObject;
-import com.one.Structure.collision.Figures.LineCollision;
 import com.one.Structure.collision.Figures.RectCollision;
 
-public class PhysicalObject extends CollisionObject{
-    public Vector2 undoPosition =new Vector2();
-    private final RectCollision rectCollision;
+public class PhysicalObject<T extends BasicObject> extends NoPhysicalObject<T>{
+    Vector2 undoPosition=new Vector2();
 
-    public PhysicalObject(BasicObject master){
-        super(master);
-
-        position=master.position;
-        size=master.size;
-        rotate=master.rotate;
-
-        rectCollision=new RectCollision(this);
-
-        manager.updateCollisions.addCollision(rectCollision);
-    }
-
-    public void updateStatus(){
-        this.dispose=master.dispose;
-        undoPosition.x=master.position.x;
-        undoPosition.y=master.position.y;
-        this.rotate= master.rotate;
+    public PhysicalObject(T master, boolean isStatic) {
+        super(master, isStatic);
     }
 
     @Override
-    public void action(LineCollision lineCollision) {}
+    public void doLogic() {
+        undoPosition.set(transform.getPosition());
+    }
 
     @Override
     public void action(RectCollision rectCollision) {
-        if(master.position.x== undoPosition.x && master.position.y==undoPosition.y)return;
+        if(!(rectCollision.master instanceof PhysicalObject))return;
+        if(transform.getPosition().x== undoPosition.x && transform.getPosition().y==undoPosition.y)return;
 
-        float activeX=master.position.x;
+        float activeX=transform.getPosition().x;
 
-        master.position.x= undoPosition.x;
+        transform.getPosition().x= undoPosition.x;
         this.rectCollision.update();
         if(!this.rectCollision.handlingCollision(rectCollision))return;
-        master.position.x=activeX;
+        transform.getPosition().x=activeX;
 
-        master.position.y= undoPosition.y;
+        transform.getPosition().y= undoPosition.y;
         this.rectCollision.update();
         if(!this.rectCollision.handlingCollision(rectCollision))return;
-        master.position.x= undoPosition.x;
+        transform.getPosition().x= undoPosition.x;
     }
 }

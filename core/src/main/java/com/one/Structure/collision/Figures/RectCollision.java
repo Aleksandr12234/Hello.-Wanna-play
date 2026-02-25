@@ -1,15 +1,21 @@
 package com.one.Structure.collision.Figures;
 
 import com.badlogic.gdx.math.Vector2;
-import com.one.Structure.collision.Objects.PhysicalObject;
+import com.one.Structure.Objects.BasicObject;
+import com.one.Structure.Objects.Module.Module;
+import com.one.Structure.Objects.Module.Transform;
+import com.one.Structure.collision.Figures.FigureInterface.LineInterface;
+import com.one.Structure.collision.Figures.FigureInterface.RectInterface;
+import com.one.Structure.collision.Objects.CollisionObject;
+import com.one.Structure.collision.Objects.NoPhysicalObject;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Math.*;
 
-public class RectCollision {
-    //тот кто использует
-    public PhysicalObject master;
-
+public class RectCollision<T extends BasicObject> extends Module<T> implements RectInterface {
     //положение
     public Vector2 position=new Vector2();
     public Vector2 size=new Vector2();
@@ -17,24 +23,22 @@ public class RectCollision {
 
     //Настройки для линий
     float lengthLine, angleLine;
-    public LineCollision[] lines=new LineCollision[4];
+    LineCollision<RectCollision<T>> lineCollision=new LineCollision<>(this);
+    public LineInterface[] lines = new LineInterface[4];
 
     //конструктор
-    public RectCollision(PhysicalObject master) {
-        this.master = master;
+    public RectCollision(T master) {
+        super(master);
 
-        for(int i=0; i<lines.length; i++){
-            lines[i]=new LineCollision(this.master);
+        for(int i=0; i<4; i++){
+            lines[i]=new LineCollision<>(this);
         }
-
-        setSize(master.size.x, master.size.y);
-        setPosition(master.position.x, master.position.y, master.rotate);
     }
 
-    //изменения
-    public void update(){
-        setSize(master.size.x, master.size.y);
-        setPosition(master.position.x, master.position.y, master.rotate);
+    @Override
+    public void update() {
+        setPosition(transform.getPosition().x, transform.getPosition().y, transform.getRotate());
+        setSize(transform.getSize().x, transform.getSize().y);
     }
 
     public void setSize(float width, float height){
@@ -74,20 +78,31 @@ public class RectCollision {
     }
 
     //обнаружение пересечения
-    public boolean handlingCollision(RectCollision other){
+    @Override
+    public boolean handlingCollision(FigureCollision collision) {
+        if(collision instanceof RectInterface) return handlingCollision((RectInterface) collision);
+        if(collision instanceof LineInterface) return handlingCollision((LineInterface) collision);
+        return false;
+    }
+
+    public boolean handlingCollision(RectInterface other){
         float w1= (float) max(abs(lengthLine*cos(rotate+angleLine)), abs(lengthLine*cos(rotate-angleLine)));
         float h1= (float) max(abs(lengthLine*sin(rotate+angleLine)), abs(lengthLine*sin(rotate-angleLine)));
 
-        float w2= (float) max(abs(other.lengthLine*cos(other.rotate+other.angleLine)), abs(other.lengthLine*cos(other.rotate-other.angleLine)));
-        float h2= (float) max(abs(other.lengthLine*sin(other.rotate+other.angleLine)), abs(other.lengthLine*sin(other.rotate-other.angleLine)));
+        float w2= (float) max(abs(other.getLenghtLine()*cos(other.getTransform().getRotate()+other.getAngelLine())),
+            abs(other.getLenghtLine()*cos(other.getTransform().getRotate()-other.getAngelLine())));
+        float h2= (float) max(abs(other.getLenghtLine()*sin(other.getTransform().getRotate()+other.getAngelLine())),
+            abs(other.getLenghtLine()*sin(other.getTransform().getRotate()-other.getAngelLine())));
 
-        if(!(position.x+w1>=other.position.x-w2 && position.x-w1<=other.position.x+w2
-            && position.y+h1>=other.position.y-h2 && position.y-h1<=other.position.y+h2)){
+        if(!(position.x+w1>=other.getTransform().getPosition().x-w2 &&
+            position.x-w1<=other.getTransform().getPosition().x+w2
+            && position.y+h1>=other.getTransform().getPosition().y-h2 &&
+            position.y-h1<=other.getTransform().getPosition().y+h2)){
             return false;
         }
 
-        for(LineCollision i : this.lines){
-            for(LineCollision j : other.lines){
+        for(LineInterface i : this.lines){
+            for(LineInterface j : other.getLines()){
                 if(i.searchIntersectionPoint(j)!=null){
                     return true;
                 }
@@ -96,8 +111,8 @@ public class RectCollision {
         return false;
     }
 
-    public boolean handlingCollision(LineCollision other){
-        for(LineCollision i : this.lines){
+    public boolean handlingCollision(LineInterface other){
+        for(LineInterface i : this.lines){
             if(i.searchIntersectionPoint(other)!=null){
                 return true;
             }
@@ -105,10 +120,36 @@ public class RectCollision {
         return false;
     }
 
+    //отрисовка
+    @Override
     public void draw(ShapeDrawer drawer){
-        for (LineCollision i : lines) {
+        for (LineInterface i : lines) {
             i.draw(drawer);
         }
+    }
 
+    @Override
+    public T getMaster() {
+        return master;
+    }
+
+    @Override
+    public float getLenghtLine() {
+        return lengthLine;
+    }
+
+    @Override
+    public float getAngelLine() {
+        return angleLine;
+    }
+
+    @Override
+    public Transform getTransform() {
+        return transform;
+    }
+
+    @Override
+    public LineInterface[] getLines() {
+        return lines;
     }
 }
