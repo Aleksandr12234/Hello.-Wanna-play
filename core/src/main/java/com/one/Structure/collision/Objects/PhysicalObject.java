@@ -2,6 +2,7 @@ package com.one.Structure.collision.Objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.one.Structure.Objects.BasicObject;
+import com.one.Structure.collision.Figures.LineCollision;
 import com.one.Structure.collision.Figures.RectCollision;
 
 public class PhysicalObject<T extends BasicObject> extends NoPhysicalObject<T>{
@@ -17,8 +18,8 @@ public class PhysicalObject<T extends BasicObject> extends NoPhysicalObject<T>{
     }
 
     @Override
-    public void action(RectCollision rectCollision) {
-        if(!(rectCollision.master instanceof PhysicalObject))return;
+    public void action(RectCollision<?> rectCollision) {
+        if(!(rectCollision.getMaster() instanceof PhysicalObject))return;
         if(transform.getPosition().x== undoPosition.x && transform.getPosition().y==undoPosition.y)return;
 
         float activeX=transform.getPosition().x;

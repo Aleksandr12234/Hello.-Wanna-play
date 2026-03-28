@@ -7,40 +7,44 @@ public class Transform {
     private final Vector2 size=new Vector2();
     private float rotate=0;
     private boolean dispose=false;
+    private boolean isActive=true;
 
     public Vector2 getPosition(){
         return new Vector2(position);
     }
-
-    public Transform setPosition(Vector2 position){
+    public void setPosition(Vector2 position){
         this.position.set(position);
-        return this;
+    }
+    public void setPosition(float x, float y){
+        this.position.set(x, y);
     }
 
     public Vector2 getSize(){
         return new Vector2(size);
     }
-
-    public Transform setSize(Vector2 size){
+    public void setSize(Vector2 size){
         this.size.set(size);
-        return this;
     }
+    public void setSize(float width, float height){this.size.set(width, height);}
 
     public float getRotate(){
         return rotate;
     }
-
-    public Transform setRotate(float rotate){
+    public void setRotate(float rotate){
         this.rotate=rotate;
-        return this;
     }
 
     public boolean getDispose(){
         return dispose;
     }
-
-    public Transform setDispose(boolean dispose){
+    public void setDispose(boolean dispose){
         this.dispose=dispose;
-        return this;
+    }
+
+    public boolean getActive(){
+        return isActive;
+    }
+    public void setActive(boolean isActive){
+        this.isActive=isActive;
     }
 }

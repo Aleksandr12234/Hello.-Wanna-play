@@ -3,11 +3,11 @@ package com.one.Structure.UserInput;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
-import com.one.Structure.Manager;
+import com.one.Structure.Stock;
 
 import java.util.LinkedList;
 
-public class KeyBoardInput implements InputProcessor {
+public class UserInput implements InputProcessor {
     LinkedList<Integer> keysPressed =new LinkedList<>();
     LinkedList<Integer> keysClamped =new LinkedList<>();
     LinkedList<Integer> keysReleased =new LinkedList<>();
@@ -16,7 +16,7 @@ public class KeyBoardInput implements InputProcessor {
     LinkedList<Integer> mouseClamped=new LinkedList<>();
     LinkedList<Integer> mouseReleased=new LinkedList<>();
 
-    public KeyBoardInput(){
+    public UserInput(){
         Gdx.input.setInputProcessor(this);
     }
 
@@ -50,7 +50,7 @@ public class KeyBoardInput implements InputProcessor {
 
     public Vector3 getMousePosition(){
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        Manager.serviceObjects.camera.unproject(mousePos);
+        Stock.getTaskRunner().serviceObjects.camera.unproject(mousePos);
         return mousePos;
     }
 

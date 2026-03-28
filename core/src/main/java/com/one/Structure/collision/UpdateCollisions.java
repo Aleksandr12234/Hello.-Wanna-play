@@ -1,11 +1,8 @@
 package com.one.Structure.collision;
 
-import com.one.Structure.Manager;
+import com.one.Structure.Stock;
 import com.one.Structure.collision.Figures.FigureCollision;
-import com.one.Structure.collision.Figures.FigureInterface.LineInterface;
-import com.one.Structure.collision.Figures.FigureInterface.RectInterface;
-import com.one.Structure.collision.Figures.LineCollision;
-import com.one.Structure.collision.Figures.RectCollision;
+import com.one.Structure.collision.Objects.Body;
 
 import java.util.ArrayList;
 
@@ -16,16 +13,17 @@ public class UpdateCollisions {
     public void update(){
         for(int i=activeCollision.size()-1; i>=0; i--){
             FigureCollision one=activeCollision.get(i);
-            if(one.getMaster().getDispose()){
+            if(one.getDispose()){
                 activeCollision.remove(i);
                 continue;
             }
-            one.update();
+            if(!one.isActive())continue;
+            one.doLogic();
 
             for (int j = i-1; j >=0 ; j--) {
                 FigureCollision two= activeCollision.get(j);
-                if(two.getMaster().getDispose())continue;
-                two.update();
+                if(two.getDispose() || !two.isActive())continue;
+                two.doLogic();
                 if(one.handlingCollision(two)){
                     action(one, two);
                 }
@@ -33,11 +31,12 @@ public class UpdateCollisions {
 
             for (int j = staticCollision.size()-1; j>=0 ; j--) {
                 FigureCollision two = staticCollision.get(j);
-                if(two.getMaster().getDispose()){
+                if(two.getDispose()){
                     staticCollision.remove(j);
                     continue;
                 }
-                two.update();
+                if(!two.isActive())continue;
+                two.doLogic();
                 if(one.handlingCollision(two)){
                     action(one, two);
                 }
@@ -47,20 +46,19 @@ public class UpdateCollisions {
     }
 
     private void action(FigureCollision one, FigureCollision two){
-        if(two instanceof RectInterface)one.getMaster().action((RectInterface) two);
-        else one.getMaster().action((LineInterface) two);
-
-        if(one instanceof RectCollision) two.getMaster().action((RectCollision) one);
-        else two.getMaster().action((LineCollision) one);
+        ((Body)one.getMaster()).action(two);
+        ((Body)two.getMaster()).action(one);
     }
 
     public void drawCollisions(){
         for (FigureCollision i : staticCollision) {
-            i.draw(Manager.serviceObjects.shapeDrawer);
+            if(i.isActive())
+                i.draw(Stock.getTaskRunner().serviceObjects.shapeDrawer);
         }
 
         for (FigureCollision i : activeCollision) {
-            i.draw(Manager.serviceObjects.shapeDrawer);
+            if(i.isActive())
+                i.draw(Stock.getTaskRunner().serviceObjects.shapeDrawer);
         }
     }
 

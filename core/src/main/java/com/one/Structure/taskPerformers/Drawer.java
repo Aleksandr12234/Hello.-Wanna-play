@@ -1,37 +1,40 @@
 package com.one.Structure.taskPerformers;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.one.Structure.Manager;
 import com.one.Structure.Objects.BasicObject;
+import com.one.Structure.Stock;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Drawer {
-    private static float red, green, blue;
-    public static Manager manager;
-    public static SpriteBatch batch;
-    public static OrthographicCamera camera;
-    public static boolean drawCollision=false;
+    private float red, green, blue;
+    private boolean drawCollision=false;
 
-    public static void setBackgroundColor(float r, float g, float b){
+    public void setBackgroundColor(float r, float g, float b){
         red=r;
         green=g;
         blue=b;
     }
 
-    public static void draw(ArrayList<BasicObject> basicObjects){
-        batch.setProjectionMatrix(camera.combined);
+    public void setDrawCollision(boolean drawCollision){
+        this.drawCollision=drawCollision;
+    }
+
+    public void draw(){
+        Stock.getTaskRunner().serviceObjects.viewport.apply();
+        Stock.getTaskRunner().serviceObjects.batch.setProjectionMatrix(Stock.getTaskRunner().serviceObjects.camera.combined);
 
         ScreenUtils.clear(red, green, blue, 1);
 
-        batch.begin();
-        for (BasicObject i : basicObjects) {
-            i.draw();
+        List<BasicObject> activeObjects=Stock.getTaskRunner().scenesManager.getActiveObjects();
+
+        Stock.getTaskRunner().serviceObjects.batch.begin();
+        for (BasicObject i : activeObjects) {
+            if(i.transform.getActive())i.draw();
         }
-        if(drawCollision)manager.updateCollisions.drawCollisions();
-        batch.end();
+
+        if(drawCollision)Stock.getTaskRunner().updateCollisions.drawCollisions();
+        Stock.getTaskRunner().serviceObjects.batch.end();
     }
 
 }

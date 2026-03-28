@@ -1,49 +1,69 @@
 package com.one.Structure.Scenes;
 
-import com.one.Structure.Manager;
 import com.one.Structure.Objects.BasicObject;
+import com.one.Structure.Stock;
+import java.util.*;
 
-import java.util.ArrayList;
+public class EmptyScene{
+    public HashMap<String, Layer> layers =new HashMap<>();
 
-public abstract class EmptyScene implements Scene{
-    public static Manager manager;
-
-    ArrayList<BasicObject> objects=new ArrayList<>();
-
-    @Override
-    public void setup() {
-        Manager.serviceObjects.camera.position.set(0, 0, 0);
-        Manager.serviceObjects.camera.update();
+    public EmptyScene(){
+        layers.put("Basic", new Layer());
     }
 
-    @Override
-    public void addObject(BasicObject added) {
-        if(added==null)return;
+    public void setup(){}
 
-        manager.isActiveObjectsChange=true;
-        objects.add(added);
-        added.setup();
+    public void addObject(BasicObject object){
+        if(object==null)return;
+        layers.get("Basic").objects.add(object);
+        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
     }
 
-    @Override
-    public void addObject(BasicObject undo, BasicObject added) {
-        if(added==null)return;
-
-        manager.isActiveObjectsChange=true;
-        int index=objects.indexOf(undo);
-        if(index>-1) objects.add(index+1, added);
-        else objects.add(added);
-        added.setup();
+    public void addObject(String layer, BasicObject object){
+        if(object==null || layer==null)return;
+        if(!layers.containsKey(layer))layers.put(layer, new Layer());
+        layers.get(layer).objects.add(object);
+        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
     }
 
-    @Override
-    public void removeObject(BasicObject removed) {
-        manager.isActiveObjectsChange=true;
-        objects.remove(removed);
+    public void addObject(BasicObject undo, BasicObject object){
+        if(undo==null || object==null)return;
+        for(Layer i : layers.values()){
+            if(i.objects.contains(undo)){
+                int index=i.objects.indexOf(undo);
+                i.objects.add(index+1, object);
+                return;
+            }
+        }
+        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
     }
 
-    @Override
-    public ArrayList<BasicObject> getObjects() {
-        return new ArrayList<>(objects);
+    public void removeObject(BasicObject object){
+        if(object==null)return;
+        for (Map.Entry<String, Layer> i : layers.entrySet()){
+            if (i.getValue().objects.remove(object)) {
+                if (i.getValue().objects.isEmpty() && !Objects.equals(i.getKey(), "Basic"))layers.remove(i.getKey());
+                return;
+            }
+        }
+        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
+    }
+
+    public void moveObjectToLayer(BasicObject object, String layer){
+        removeObject(object);
+        addObject(layer, object);
+    }
+
+    public TreeMap<Byte, List<BasicObject>> getObjects(){
+        TreeMap<Byte, List<BasicObject>> output=new TreeMap<>();
+        for(Layer i : layers.values()){
+            if(output.containsKey(i.number)){
+                output.get(i.number).addAll(i.objects);
+            }else {
+                output.put(i.number, i.objects);
+            }
+        }
+
+        return output;
     }
 }
