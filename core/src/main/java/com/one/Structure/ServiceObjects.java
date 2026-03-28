@@ -40,6 +40,7 @@ public class ServiceObjects extends Game {
         pixmap.dispose();
         TextureRegion region = new TextureRegion(textureForShapes, 0, 0, 1, 1);
         shapeDrawer=new ShapeDrawer(batch, region);
+        shapeDrawer.setDefaultLineWidth(0.01f);
 
         //Текст по умолчанию
         font = new BitmapFont();
