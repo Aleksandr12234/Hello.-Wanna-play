@@ -62,6 +62,11 @@ public class UpdateCollisions {
         }
     }
 
+    public void dispose(){
+        activeCollision.clear();
+        staticCollision.clear();
+    }
+
     public void addStaticCollision(FigureCollision collision){staticCollision.add(collision);}
     public void addActiveCollision(FigureCollision collision){activeCollision.add(collision);}
 }

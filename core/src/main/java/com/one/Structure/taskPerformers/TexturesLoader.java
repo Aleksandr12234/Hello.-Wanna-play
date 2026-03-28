@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.HashMap;
 
 public class TexturesLoader {
-    HashMap<String, Music> musicHashMap=new HashMap<>();
-    HashMap<String, Sound> soundHashMap=new HashMap<>();
-    HashMap<String, Texture> textureHashMap=new HashMap<>();
+    private final HashMap<String, Music> musicHashMap=new HashMap<>();
+    private final HashMap<String, Sound> soundHashMap=new HashMap<>();
+    private final HashMap<String, Texture> textureHashMap=new HashMap<>();
 
     public Texture loadTexture(String path){
         if(textureHashMap.containsKey(path))return textureHashMap.get(path);

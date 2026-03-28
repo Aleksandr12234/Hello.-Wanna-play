@@ -20,7 +20,7 @@ public class ScenesManager {
     public void update(){
         if(newScene!=null){
             Stock.getTaskRunner().texturesLoader.dispose();
-            //Stock.getTaskRunner().updateCollisions.dispose(); отчистка колизий
+            Stock.getTaskRunner().updateCollisions.dispose();
             activeScene=newScene;
             activeScene.setup();
             isChangeObjects=true;
