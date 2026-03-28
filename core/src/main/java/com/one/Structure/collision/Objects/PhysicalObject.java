@@ -19,19 +19,8 @@ public class PhysicalObject<T extends BasicObject> extends NoPhysicalObject<T>{
 
     @Override
     public void action(RectCollision<?> rectCollision) {
-        if(!(rectCollision.getMaster() instanceof PhysicalObject))return;
+        if(!(rectCollision.getMaster() instanceof PhysicalObject<?>))return;
         if(transform.getPosition().x== undoPosition.x && transform.getPosition().y==undoPosition.y)return;
-
-        float activeX=transform.getPosition().x;
-
-        transform.getPosition().x= undoPosition.x;
-        this.rectCollision.update();
-        if(!this.rectCollision.handlingCollision(rectCollision))return;
-        transform.getPosition().x=activeX;
-
-        transform.getPosition().y= undoPosition.y;
-        this.rectCollision.update();
-        if(!this.rectCollision.handlingCollision(rectCollision))return;
-        transform.getPosition().x= undoPosition.x;
+        transform.setPosition(undoPosition);
     }
 }

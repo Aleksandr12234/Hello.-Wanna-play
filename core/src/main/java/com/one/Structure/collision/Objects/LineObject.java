@@ -8,12 +8,11 @@ import com.one.Structure.collision.Figures.LineCollision;
 import com.one.Structure.collision.Figures.RectCollision;
 
 public class LineObject<T extends BasicObject> extends Module<T> implements Body {
-    protected final LineCollision<LineObject<T>> collision;
+    protected final LineCollision<LineObject<T>> collision=new LineCollision<>(this);;
 
     public LineObject(T master, boolean isStatic) {
         super(master);
-
-        collision=new LineCollision<>(this);
+        
         if(!isStatic) Stock.getTaskRunner().updateCollisions.addActiveCollision(collision);
         else Stock.getTaskRunner().updateCollisions.addStaticCollision(collision);
     }

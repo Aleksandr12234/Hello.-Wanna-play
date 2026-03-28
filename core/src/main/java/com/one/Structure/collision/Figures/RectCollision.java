@@ -26,13 +26,14 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
         }
     }
 
-    public void update() {
+    @Override
+    public void doLogic() {
         setPosition(transform.getPosition().x, transform.getPosition().y, transform.getRotate());
         setSize(transform.getSize().x, transform.getSize().y);
     }
 
     public void setSize(float width, float height){
-        if(transform.getSize().x==width && transform.getSize().y==height)return;
+        if(localTransform.getSize().x==width && localTransform.getSize().y==height)return;
 
         localTransform.getSize().x=width;
         localTransform.getSize().y=height;

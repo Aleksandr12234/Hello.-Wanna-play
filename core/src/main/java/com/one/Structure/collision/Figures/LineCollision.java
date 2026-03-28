@@ -53,7 +53,9 @@ public class LineCollision<T extends  BasicObject> extends Module<T> implements 
         boolean u3= y>=min(y1,y2) && y<=max(y1,y2);
         boolean u4= y>=min(line.getY1(),line.getY2()) && y<=max(line.getY1(),line.getY2());
 
-        if(u1 && u2 && u3 && u4)return new Vector2(x,y);
+        if(u1 && u2 && u3 && u4){
+            return new Vector2(x,y);
+        }
         return null;
     }
 
