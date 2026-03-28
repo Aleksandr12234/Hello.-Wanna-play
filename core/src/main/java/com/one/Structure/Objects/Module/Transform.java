@@ -27,8 +27,11 @@ public class Transform {
     }
     public void setSize(float width, float height){this.size.set(width, height);}
 
-    public float getRotate(){
+    public float getDegreesRotate(){
         return rotate;
+    }
+    public float getRadianRotate(){
+        return (float) Math.toRadians(rotate);
     }
     public void setRotate(float rotate){
         this.rotate=rotate;

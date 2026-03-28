@@ -8,6 +8,7 @@ public class TestControlRect extends TestPhysicRect{
 
     public TestControlRect(float x, float y, float width, float height) {
         super(x, y, width, height);
+        transform.setRotate(45);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class TestScene extends EmptyScene {
 
         addObject(new Square(0,0,1, 1));
 
-        addObject(new TestPhysicRect(1,0,1, 1));
+        addObject(new TestPhysicRect(-1,0,1, 1));
 
         addObject(new TestControlRect(2, 0, 1, 1));
     }

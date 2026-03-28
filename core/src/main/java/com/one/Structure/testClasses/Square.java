@@ -16,12 +16,14 @@ public class Square extends BasicObject {
 
     @Override
     public void draw() {
+        sprite.setOriginCenter();
+        sprite.setRotation(transform.getDegreesRotate());
         sprite.setSize(transform.getSize().x,transform.getSize().y);
         sprite.setCenter(transform.getPosition().x, transform.getPosition().y);
 
-        Stock.getTaskRunner().serviceObjects.shapeDrawer.rectangle(
-            transform.getPosition().x-transform.getSize().x/2, transform.getPosition().y-transform.getSize().y/2,
-            transform.getSize().x, transform.getSize().y);
+//        Stock.getTaskRunner().serviceObjects.shapeDrawer.rectangle(
+//            transform.getPosition().x-transform.getSize().x/2, transform.getPosition().y-transform.getSize().y/2,
+//            transform.getSize().x, transform.getSize().y);
 
         sprite.draw(Stock.getTaskRunner().serviceObjects.batch);
     }

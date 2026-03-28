@@ -28,7 +28,7 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
 
     @Override
     public void doLogic() {
-        setPosition(transform.getPosition().x, transform.getPosition().y, transform.getRotate());
+        setPosition(transform.getPosition().x, transform.getPosition().y, transform.getDegreesRotate());
         setSize(transform.getSize().x, transform.getSize().y);
     }
 
@@ -46,7 +46,7 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
     }
 
     public void setPosition(float x, float y, float angle){
-        if(localTransform.getPosition().x==x && localTransform.getPosition().y==y && localTransform.getRotate()==angle) return;
+        if(localTransform.getPosition().x==x && localTransform.getPosition().y==y && localTransform.getDegreesRotate()==angle) return;
 
         localTransform.setPosition(x, y);
         localTransform.setRotate(angle);
@@ -55,11 +55,11 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
     }
 
     private void updateLinePosition(){
-        float plusX= (float) (lengthLine*cos(localTransform.getRotate()+angleLine));
-        float minesX= (float) (lengthLine*cos(localTransform.getRotate()-angleLine));
+        float plusX= (float) (lengthLine*cos(localTransform.getRadianRotate()+angleLine));
+        float minesX= (float) (lengthLine*cos(localTransform.getRadianRotate()-angleLine));
 
-        float plusY= (float) (lengthLine*sin(localTransform.getRotate()+angleLine));
-        float minesY= (float) (lengthLine*sin(localTransform.getRotate()-angleLine));
+        float plusY= (float) (lengthLine*sin(localTransform.getRadianRotate()+angleLine));
+        float minesY= (float) (lengthLine*sin(localTransform.getRadianRotate()-angleLine));
 
         lines.get(0).setCoordinates(localTransform.getPosition().x-plusX, localTransform.getPosition().y-plusY,
             localTransform.getPosition().x+minesX, localTransform.getPosition().y+minesY);
@@ -80,15 +80,15 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
     }
 
     public boolean handlingCollision(RectCollision<?> other){
-        float w1= (float) max(abs(lengthLine*cos(localTransform.getRotate()+angleLine)),
-            abs(lengthLine*cos(localTransform.getRotate()-angleLine)));
-        float h1= (float) max(abs(lengthLine*sin(localTransform.getRotate()+angleLine)),
-            abs(lengthLine*sin(localTransform.getRotate()-angleLine)));
+        float w1= (float) max(abs(lengthLine*cos(localTransform.getRadianRotate()+angleLine)),
+            abs(lengthLine*cos(localTransform.getRadianRotate()-angleLine)));
+        float h1= (float) max(abs(lengthLine*sin(localTransform.getRadianRotate()+angleLine)),
+            abs(lengthLine*sin(localTransform.getRadianRotate()-angleLine)));
 
-        float w2= (float) max(abs(other.getLengthLine()*cos(other.getTransform().getRotate()+other.getAngelLine())),
-            abs(other.getLengthLine()*cos(other.getTransform().getRotate()-other.getAngelLine())));
-        float h2= (float) max(abs(other.getLengthLine()*sin(other.getTransform().getRotate()+other.getAngelLine())),
-            abs(other.getLengthLine()*sin(other.getTransform().getRotate()-other.getAngelLine())));
+        float w2= (float) max(abs(other.getLengthLine()*cos(other.getTransform().getRadianRotate()+other.getAngelLine())),
+            abs(other.getLengthLine()*cos(other.getTransform().getRadianRotate()-other.getAngelLine())));
+        float h2= (float) max(abs(other.getLengthLine()*sin(other.getTransform().getRadianRotate()+other.getAngelLine())),
+            abs(other.getLengthLine()*sin(other.getTransform().getRadianRotate()-other.getAngelLine())));
 
         if(!(localTransform.getPosition().x+w1>=other.getTransform().getPosition().x-w2 &&
             localTransform.getPosition().x-w1<=other.getTransform().getPosition().x+w2

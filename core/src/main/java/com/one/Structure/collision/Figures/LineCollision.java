@@ -18,7 +18,7 @@ public class LineCollision<T extends  BasicObject> extends Module<T> implements 
 
     @Override
     public void draw(ShapeDrawer drawer){
-        drawer.line(x1, y1, x2, y2, Color.RED);
+        drawer.line(x1, y1, x2, y2, Color.GREEN);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class LineCollision<T extends  BasicObject> extends Module<T> implements 
     }
 
     public void setCoordinates(float x1,float y1, float x2, float y2){
-        if((int)(x1)==(int)(x2))x1+=1;
-        if((int)(y1)==(int)(y2))y1+=1;
+        if(x1==x2)x1+=0.01f;
+        if(y1==y2)y1+=0.01f;
 
         this.x1=x1;
         this.x2=x2;
