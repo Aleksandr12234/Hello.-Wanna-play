@@ -1,4 +1,4 @@
-package com.one.Structure.taskPerformers;
+package com.one.Structure.TaskPerformers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -37,11 +37,14 @@ public class TexturesLoader {
         for(String i : textureHashMap.keySet()){
             textureHashMap.get(i).dispose();
         }
+        textureHashMap.clear();
         for(String i : musicHashMap.keySet()){
             musicHashMap.get(i).dispose();
         }
+        musicHashMap.clear();
         for (String i : soundHashMap.keySet()) {
             soundHashMap.get(i).dispose();
         }
+        soundHashMap.clear();
     }
 }

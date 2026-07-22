@@ -1,8 +1,8 @@
-package com.one.Structure.collision;
+package com.one.Structure.Collision;
 
 import com.one.Structure.Stock;
-import com.one.Structure.collision.Figures.FigureCollision;
-import com.one.Structure.collision.Objects.Body;
+import com.one.Structure.Collision.Figures.FigureCollision;
+import com.one.Structure.Collision.Objects.Body;
 
 import java.util.ArrayList;
 

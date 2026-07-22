@@ -8,6 +8,7 @@ import com.one.Structure.Stock;
 import java.util.LinkedList;
 
 public class UserInput implements InputProcessor {
+    //Нажата зажата и отпущена
     LinkedList<Integer> keysPressed =new LinkedList<>();
     LinkedList<Integer> keysClamped =new LinkedList<>();
     LinkedList<Integer> keysReleased =new LinkedList<>();

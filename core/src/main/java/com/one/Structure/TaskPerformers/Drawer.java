@@ -1,4 +1,4 @@
-package com.one.Structure.taskPerformers;
+package com.one.Structure.TaskPerformers;
 
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.one.Structure.Objects.BasicObject;
@@ -30,10 +30,12 @@ public class Drawer {
 
         Stock.getTaskRunner().serviceObjects.batch.begin();
         for (BasicObject i : activeObjects) {
-            if(i.transform.getActive())i.draw();
+            if(i.getTransform().getDraw())i.draw();
         }
 
         if(drawCollision)Stock.getTaskRunner().updateCollisions.drawCollisions();
+
+        Debug.drawTask();
         Stock.getTaskRunner().serviceObjects.batch.end();
     }
 

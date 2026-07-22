@@ -1,4 +1,4 @@
-package com.one.Structure.taskPerformers;
+package com.one.Structure.TaskPerformers;
 
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Scenes.EmptyScene;
@@ -21,6 +21,9 @@ public class ScenesManager {
         if(newScene!=null){
             Stock.getTaskRunner().texturesLoader.dispose();
             Stock.getTaskRunner().updateCollisions.dispose();
+            Stock.getTaskRunner().serviceObjects.camera.position.set(0, 0,
+                Stock.getTaskRunner().serviceObjects.camera.position.z);
+            if(activeScene!=null)activeScene.dispose();
             activeScene=newScene;
             activeScene.setup();
             isChangeObjects=true;

@@ -1,4 +1,4 @@
-package com.one.Structure.testClasses;
+package com.one.Structure.TestClasses;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.one.Structure.Objects.BasicObject;

@@ -1,4 +1,4 @@
-package com.one.Structure.testClasses;
+package com.one.Structure.TestClasses;
 
 import com.badlogic.gdx.Input;
 import com.one.Structure.Stock;
@@ -8,12 +8,13 @@ public class TestControlRect extends TestPhysicRect{
 
     public TestControlRect(float x, float y, float width, float height) {
         super(x, y, width, height);
-        transform.setRotate(45);
+        transform.setRotate(0);
     }
 
     @Override
     public void doLogic() {
         super.doLogic();
+
         speed=5f*deltaTime;
 
         if(Stock.getTaskRunner().userInput.getKeysClamped(Input.Keys.W))

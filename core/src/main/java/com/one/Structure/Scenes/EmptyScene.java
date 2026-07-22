@@ -4,14 +4,14 @@ import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Stock;
 import java.util.*;
 
-public class EmptyScene{
+public abstract class EmptyScene{
     public HashMap<String, Layer> layers =new HashMap<>();
 
     public EmptyScene(){
         layers.put("Basic", new Layer());
     }
 
-    public void setup(){}
+    public abstract void setup();
 
     public void addObject(BasicObject object){
         if(object==null)return;
@@ -32,21 +32,23 @@ public class EmptyScene{
             if(i.objects.contains(undo)){
                 int index=i.objects.indexOf(undo);
                 i.objects.add(index+1, object);
+                Stock.getTaskRunner().scenesManager.isChangeObjects=true;
                 return;
             }
         }
-        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
     }
 
     public void removeObject(BasicObject object){
         if(object==null)return;
         for (Map.Entry<String, Layer> i : layers.entrySet()){
             if (i.getValue().objects.remove(object)) {
-                if (i.getValue().objects.isEmpty() && !Objects.equals(i.getKey(), "Basic"))layers.remove(i.getKey());
+                if (i.getValue().objects.isEmpty() && !Objects.equals(i.getKey(), "Basic") && !i.getValue().save) {
+                    layers.remove(i.getKey());
+                }
+                Stock.getTaskRunner().scenesManager.isChangeObjects = true;
                 return;
             }
         }
-        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
     }
 
     public void moveObjectToLayer(BasicObject object, String layer){
@@ -60,10 +62,11 @@ public class EmptyScene{
             if(output.containsKey(i.number)){
                 output.get(i.number).addAll(i.objects);
             }else {
-                output.put(i.number, i.objects);
+                output.put(i.number, new ArrayList<>(i.objects));
             }
         }
-
         return output;
     }
+
+    public void dispose(){}
 }

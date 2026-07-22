@@ -1,6 +1,6 @@
-package com.one.Structure.collision.Objects;
+package com.one.Structure.Collision.Objects;
 
-import com.one.Structure.collision.Figures.FigureCollision;
+import com.one.Structure.Collision.Figures.FigureCollision;
 
 public interface Body {
     void action(FigureCollision collision);

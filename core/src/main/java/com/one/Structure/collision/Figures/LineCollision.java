@@ -1,4 +1,4 @@
-package com.one.Structure.collision.Figures;
+package com.one.Structure.Collision.Figures;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;

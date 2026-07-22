@@ -1,4 +1,4 @@
-package com.one.Structure.collision.Figures;
+package com.one.Structure.Collision.Figures;
 
 import com.one.Structure.Objects.BasicObject;
 import space.earlygrey.shapedrawer.ShapeDrawer;

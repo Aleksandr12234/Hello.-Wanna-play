@@ -1,16 +1,17 @@
-package com.one.Structure.collision.Figures;
+package com.one.Structure.Collision.Figures;
 
 import com.badlogic.gdx.math.Vector2;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Objects.Module.Module;
 import com.one.Structure.Objects.Module.Transform;
 import space.earlygrey.shapedrawer.ShapeDrawer;
-
 import java.util.ArrayList;
 import java.util.List;
 import static java.lang.Math.*;
 
 public class RectCollision<T extends BasicObject> extends Module<T> implements FigureCollision {
+    public ArrayList<Vector2> points=new ArrayList<>();
+
     private final Transform localTransform=new Transform();
 
     //Настройки для линий
@@ -80,6 +81,8 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
     }
 
     public boolean handlingCollision(RectCollision<?> other){
+        points=new ArrayList<>();
+        other.points=points;
         float w1= (float) max(abs(lengthLine*cos(localTransform.getRadianRotate()+angleLine)),
             abs(lengthLine*cos(localTransform.getRadianRotate()-angleLine)));
         float h1= (float) max(abs(lengthLine*sin(localTransform.getRadianRotate()+angleLine)),
@@ -97,14 +100,17 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
             return false;
         }
 
+        boolean b=false;
         for(LineCollision<?> i : this.lines){
             for(LineCollision<?> j : other.getLines()){
-                if(i.searchIntersectionPoint(j)!=null){
-                    return true;
+                Vector2 vector2=i.searchIntersectionPoint(j);
+                if(vector2!=null){
+                    points.add(vector2);
+                    b=true;
                 }
             }
         }
-        return false;
+        return b;
     }
 
     public boolean handlingCollision(LineCollision<?> other){
@@ -142,7 +148,7 @@ public class RectCollision<T extends BasicObject> extends Module<T> implements F
         return angleLine;
     }
 
-    public Transform getTransform() {
+    public Transform getLocalTransform() {
         return localTransform;
     }
 

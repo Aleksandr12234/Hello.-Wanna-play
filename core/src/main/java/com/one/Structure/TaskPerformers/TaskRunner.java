@@ -1,8 +1,8 @@
-package com.one.Structure.taskPerformers;
+package com.one.Structure.TaskPerformers;
 
 import com.one.Structure.ServiceObjects;
 import com.one.Structure.UserInput.UserInput;
-import com.one.Structure.collision.UpdateCollisions;
+import com.one.Structure.Collision.UpdateCollisions;
 
 public class TaskRunner {
     public final ServiceObjects serviceObjects;

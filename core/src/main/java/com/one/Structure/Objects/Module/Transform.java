@@ -8,6 +8,7 @@ public class Transform {
     private float rotate=0;
     private boolean dispose=false;
     private boolean isActive=true;
+    private boolean isDraw=true;
 
     public Vector2 getPosition(){
         return new Vector2(position);
@@ -17,6 +18,9 @@ public class Transform {
     }
     public void setPosition(float x, float y){
         this.position.set(x, y);
+    }
+    public void addPosition(float x, float y){
+        this.position.add(x, y);
     }
 
     public Vector2 getSize(){
@@ -33,9 +37,10 @@ public class Transform {
     public float getRadianRotate(){
         return (float) Math.toRadians(rotate);
     }
-    public void setRotate(float rotate){
-        this.rotate=rotate;
+    public void setRotate(float angleDeg){
+        this.rotate=angleDeg;
     }
+    public void addDegreesRotate(float angleDeg){rotate+=angleDeg;}
 
     public boolean getDispose(){
         return dispose;
@@ -50,4 +55,7 @@ public class Transform {
     public void setActive(boolean isActive){
         this.isActive=isActive;
     }
+
+    public boolean getDraw(){return isDraw;}
+    public void setDraw(boolean isDraw){this.isDraw=isDraw;}
 }

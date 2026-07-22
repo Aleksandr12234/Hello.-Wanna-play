@@ -1,8 +1,8 @@
 package com.one.Structure;
 
 import com.badlogic.gdx.Screen;
-import com.one.Structure.taskPerformers.*;
-import com.one.Structure.testClasses.TestScene;
+import com.one.Structure.TaskPerformers.*;
+import com.one.Structure.TestClasses.TestScene;
 
 public class Stock implements Screen {
     private static TaskRunner taskRunner;
