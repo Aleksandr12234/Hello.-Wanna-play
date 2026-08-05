@@ -15,17 +15,15 @@ public abstract class EmptyScene{
 
     public void addObject(BasicObject object){
         if(object==null)return;
-        layers.get("Basic").objects.add(object);
+        layers.get("Basic").addObject(object);
         Stock.getTaskRunner().scenesManager.isChangeObjects=true;
-        object.setup();
     }
 
     public void addObject(String layer, BasicObject object){
         if(object==null || layer==null)return;
         if(!layers.containsKey(layer))layers.put(layer, new Layer());
-        layers.get(layer).objects.add(object);
+        layers.get(layer).addObject(object);
         Stock.getTaskRunner().scenesManager.isChangeObjects=true;
-        object.setup();
     }
 
     public void addObject(BasicObject undo, BasicObject object){
@@ -33,9 +31,8 @@ public abstract class EmptyScene{
         for(Layer i : layers.values()){
             if(i.objects.contains(undo)){
                 int index=i.objects.indexOf(undo);
-                i.objects.add(index+1, object);
+                i.addObject(index+1, object);
                 Stock.getTaskRunner().scenesManager.isChangeObjects=true;
-                object.setup();
                 return;
             }
         }

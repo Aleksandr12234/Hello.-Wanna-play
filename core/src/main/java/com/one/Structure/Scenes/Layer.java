@@ -15,6 +15,8 @@ public class Layer {
     public byte number=0;
     public boolean save=false;
 
+    boolean isActive=true, isDraw=true;
+
     public void changeActive(boolean isActive, boolean isDraw){
         for (BasicObject i : objects) {
             i.getStatus().isActive=isActive;
@@ -23,6 +25,9 @@ public class Layer {
         for (Layer i : childLayers) {
             i.changeActive(isActive, isDraw);
         }
+
+        this.isActive=isActive;
+        this.isDraw=isDraw;
     }
 
     public void changeActive(boolean isActive){
@@ -41,6 +46,7 @@ public class Layer {
 
         childLayers.add(layer);
         layer.masterLayers.add(this);
+        layer.changeActive(isActive, isDraw);
     }
 
     public void removeChildLayer(String layerName){
@@ -59,5 +65,19 @@ public class Layer {
         for (Layer i : masterLayers) {
             i.childLayers.remove(this);
         }
+    }
+
+    public void addObject(BasicObject object){
+        objects.add(object);
+        object.getStatus().isActive=isActive;
+        object.getStatus().isDraw=isDraw;
+        object.setup();
+    }
+
+    public void addObject(int index, BasicObject object){
+        objects.add(index, object);
+        object.getStatus().isActive=isActive;
+        object.getStatus().isDraw=isDraw;
+        object.setup();
     }
 }
