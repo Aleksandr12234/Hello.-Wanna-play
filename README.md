@@ -17,7 +17,12 @@ ext.appName = 'Structure'
 eclipse.project.name = 'Structure' + '-parent'
 ```
 
-3) (Необязательно) Создать директорию core.src.main.java.com.one.Project 
+3) Изменить репозиторий структуры на собственный
+```
+git remote set-url origin <URL_нового_репозитория>
+```
+
+4) (Необязательно) Создать директорию core.src.main.java.com.one.Project 
 и начать в ней работать
 
 ## Lwjgl3Launcher
