@@ -16,12 +16,12 @@ public class Logic {
 
         //Можно будет разделить на потоки
         for (BasicObject i : activeObjects) {
-            if (i.getTransform().getDispose()) {
+            if (i.getStatus().dispose) {
                 i.onDispose();
                 Stock.getTaskRunner().scenesManager.activeScene.removeObject(i);
                 continue;
             }
-            if(i.getTransform().getActive())i.doLogic();
+            if(i.getStatus().isActive)i.doLogic();
         }
     }
 }

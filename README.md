@@ -113,8 +113,8 @@ public abstract class EmptyScene {
     public abstract void setup();//Именно тут нужно создавать и дальше работать с объектами
     public void addObject(BasicObject object);//Добавить объект, имеет перегрузки
     public void removeObject(BasicObject object);//Удалить объект
-    public void moveObjectToLayer(BasicObject object, String layer);//Сменить слой объекта (не настроено изменение
-    // состояния объекта под новый слой)
+    public void moveObjectToLayer(BasicObject object, String layer);//Сменить слой объекта (не настроено изменение состояния объекта под новый слой)
+}
 ```
 Сцены работают со слоями, слой:
 ```java

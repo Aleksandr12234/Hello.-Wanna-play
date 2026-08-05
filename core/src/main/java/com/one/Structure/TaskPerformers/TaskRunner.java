@@ -7,7 +7,7 @@ import com.one.Structure.Collision.UpdateCollisions;
 public class TaskRunner {
     public final ServiceObjects serviceObjects;
     public final UserInput userInput=new UserInput();
-    public final TexturesLoader texturesLoader=new TexturesLoader();
+    public final AssetsLoader assetsLoader =new AssetsLoader();
     public final UpdateCollisions updateCollisions=new UpdateCollisions();
     public final ScenesManager scenesManager=new ScenesManager();
     public final Drawer drawer=new Drawer();

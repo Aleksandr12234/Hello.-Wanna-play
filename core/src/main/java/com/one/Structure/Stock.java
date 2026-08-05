@@ -28,7 +28,8 @@ public class Stock implements Screen {
 
     @Override
     public void dispose() {
-        taskRunner.texturesLoader.dispose();
+        taskRunner.assetsLoader.dispose();
+        taskRunner.drawer.dispose();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class Stock implements Screen {
 
     @Override
     public void resume() {
-
+        taskRunner.drawer.postProcessor.rebind();
     }
 
     @Override

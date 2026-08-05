@@ -19,7 +19,7 @@ public class ScenesManager {
 
     public void update(){
         if(newScene!=null){
-            Stock.getTaskRunner().texturesLoader.dispose();
+            Stock.getTaskRunner().assetsLoader.dispose();
             Stock.getTaskRunner().updateCollisions.dispose();
             Stock.getTaskRunner().serviceObjects.camera.position.set(0, 0,
                 Stock.getTaskRunner().serviceObjects.camera.position.z);

@@ -8,7 +8,6 @@ public class TestControlRect extends TestPhysicRect{
 
     public TestControlRect(float x, float y, float width, float height) {
         super(x, y, width, height);
-        transform.setRotate(0);
     }
 
     @Override
@@ -18,12 +17,12 @@ public class TestControlRect extends TestPhysicRect{
         speed=5f*deltaTime;
 
         if(Stock.getTaskRunner().userInput.getKeysClamped(Input.Keys.W))
-            transform.setPosition(transform.getPosition().x, transform.getPosition().y+speed);
+            transform.position.set(transform.position.x, transform.position.y+speed);
         if(Stock.getTaskRunner().userInput.getKeysClamped(Input.Keys.S))
-            transform.setPosition(transform.getPosition().x, transform.getPosition().y-speed);
+            transform.position.set(transform.position.x, transform.position.y-speed);
         if(Stock.getTaskRunner().userInput.getKeysClamped(Input.Keys.A))
-            transform.setPosition(transform.getPosition().x-speed, transform.getPosition().y);
+            transform.position.set(transform.position.x-speed, transform.position.y);
         if(Stock.getTaskRunner().userInput.getKeysClamped(Input.Keys.D))
-            transform.setPosition(transform.getPosition().x+speed, transform.getPosition().y);
+            transform.position.set(transform.position.x+speed, transform.position.y);
     }
 }

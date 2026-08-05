@@ -2,7 +2,7 @@ package com.one.Structure.Collision;
 
 import com.one.Structure.Stock;
 import com.one.Structure.Collision.Figures.FigureCollision;
-import com.one.Structure.Collision.Objects.Body;
+import com.one.Structure.Collision.Body.Body;
 
 import java.util.ArrayList;
 

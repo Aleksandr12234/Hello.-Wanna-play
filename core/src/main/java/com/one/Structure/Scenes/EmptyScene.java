@@ -17,6 +17,7 @@ public abstract class EmptyScene{
         if(object==null)return;
         layers.get("Basic").objects.add(object);
         Stock.getTaskRunner().scenesManager.isChangeObjects=true;
+        object.setup();
     }
 
     public void addObject(String layer, BasicObject object){
@@ -24,6 +25,7 @@ public abstract class EmptyScene{
         if(!layers.containsKey(layer))layers.put(layer, new Layer());
         layers.get(layer).objects.add(object);
         Stock.getTaskRunner().scenesManager.isChangeObjects=true;
+        object.setup();
     }
 
     public void addObject(BasicObject undo, BasicObject object){
@@ -33,6 +35,7 @@ public abstract class EmptyScene{
                 int index=i.objects.indexOf(undo);
                 i.objects.add(index+1, object);
                 Stock.getTaskRunner().scenesManager.isChangeObjects=true;
+                object.setup();
                 return;
             }
         }
@@ -42,7 +45,9 @@ public abstract class EmptyScene{
         if(object==null)return;
         for (Map.Entry<String, Layer> i : layers.entrySet()){
             if (i.getValue().objects.remove(object)) {
-                if (i.getValue().objects.isEmpty() && !Objects.equals(i.getKey(), "Basic") && !i.getValue().save) {
+                if (i.getValue().objects.isEmpty() && !Objects.equals(i.getKey(), "Basic")
+                    && !i.getValue().save && i.getValue().childLayersIsEmpty()) {
+                    i.getValue().dispose();
                     layers.remove(i.getKey());
                 }
                 Stock.getTaskRunner().scenesManager.isChangeObjects = true;

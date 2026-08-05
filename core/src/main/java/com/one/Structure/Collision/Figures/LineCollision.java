@@ -23,12 +23,12 @@ public class LineCollision<T extends  BasicObject> extends Module<T> implements 
 
     @Override
     public boolean isActive() {
-        return transform.getActive();
+        return status.isActive;
     }
 
     @Override
     public boolean getDispose() {
-        return transform.getDispose();
+        return status.dispose;
     }
 
     public void setCoordinates(float x1,float y1, float x2, float y2){
