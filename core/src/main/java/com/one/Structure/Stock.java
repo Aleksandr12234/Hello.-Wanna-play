@@ -1,15 +1,15 @@
 package com.one.Structure;
 
 import com.badlogic.gdx.Screen;
+import com.one.Project.BasicSettings;
 import com.one.Structure.TaskPerformers.*;
-import com.one.Structure.TestClasses.TestScene;
 
 public class Stock implements Screen {
     private static TaskRunner taskRunner;
 
     public Stock(ServiceObjects serviceObjects){
         taskRunner = new TaskRunner(serviceObjects);
-        taskRunner.scenesManager.changeActiveScene(new TestScene());
+        taskRunner.scenesManager.changeActiveScene(BasicSettings.getStartScene());
     }
 
     public static TaskRunner getTaskRunner(){
