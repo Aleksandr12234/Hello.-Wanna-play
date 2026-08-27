@@ -58,6 +58,11 @@ public abstract class EmptyScene{
         addObject(layer, object);
     }
 
+    public void addLayer(String name){
+        if(!layers.containsKey(name))layers.put(name, new Layer());
+        layers.get(name).save=true;
+    }
+
     public TreeMap<Byte, List<BasicObject>> getObjects(){
         TreeMap<Byte, List<BasicObject>> output=new TreeMap<>();
         for(Layer i : layers.values()){

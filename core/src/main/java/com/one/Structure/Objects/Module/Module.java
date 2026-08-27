@@ -10,6 +10,7 @@ public class Module<T extends BasicObject> extends BasicObject {
     public Module(T master){
         this.master=master;
         status= master.getStatus();
+        master.addModuleToSetup(this);
     }
 
     @Override

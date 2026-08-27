@@ -2,6 +2,9 @@ package com.one.Structure.Objects;
 
 import com.one.Structure.Objects.BasicObjectComponents.StatusInfo;
 import com.one.Structure.Objects.BasicObjectComponents.Transform;
+import com.one.Structure.Objects.Module.Module;
+
+import java.util.ArrayList;
 
 /**
  * Базовый объект, методы которого вызываются в структуре
@@ -11,10 +14,17 @@ public class BasicObject {
     protected StatusInfo status=new StatusInfo();
     protected Transform transform = new Transform();
 
+    private ArrayList<Module<?>> modulesToSetup=new ArrayList<>();
+
     /**
      * Вызывается один раз после добавления объекта в сцену
      */
-    public void setup(){}
+    public void setup(){
+        for (Module<?> i : modulesToSetup) {
+            i.setup();
+        }
+        modulesToSetup=null;
+    }
 
     /**
      * Используется для действий объекта, перед отрисовкой
@@ -34,5 +44,9 @@ public class BasicObject {
 
     public StatusInfo getStatus(){
         return status;
+    }
+
+    public void addModuleToSetup(Module<?> module){
+        modulesToSetup.add(module);
     }
 }

@@ -9,6 +9,8 @@ public class Animator<T extends BasicObject> extends Module<T>{
     private int currentFrame=0;
     private float time;
     public float timeOnFrame=0.2f;
+    public boolean isLoop=false;
+    public boolean pause=false;
 
     public Animator(T master, int widthOneSprite, int heightOneSprite, int countFrame, String path){
         super(master);
@@ -27,10 +29,13 @@ public class Animator<T extends BasicObject> extends Module<T>{
 
     @Override
     public void draw() {
-        time+=deltaTime;
+        if(!pause)time+=deltaTime;
         if(time>=timeOnFrame){
             currentFrame++;
-            if(currentFrame>= sprites.length)currentFrame=0;
+            if(currentFrame>= sprites.length){
+                if(isLoop)currentFrame=0;
+                else currentFrame=sprites.length-1;
+            }
             time=0;
         }
 
@@ -44,5 +49,13 @@ public class Animator<T extends BasicObject> extends Module<T>{
     public void reset(){
         currentFrame=0;
         time=0;
+    }
+
+    public boolean isEnd(){
+        return currentFrame>= sprites.length;
+    }
+
+    public int getCurrentFrame(){
+        return currentFrame;
     }
 }

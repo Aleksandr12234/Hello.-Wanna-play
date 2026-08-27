@@ -9,6 +9,7 @@ public class Text extends BasicObject {
     public String text="";
     public float r, g, b, a;
     public float scale=1f;
+    public AnchorPoint anchorPoint = AnchorPoint.CENTER;
 
     public Text(String text, float x, float y, float scale){
         this(text, x, y);
@@ -38,8 +39,14 @@ public class Text extends BasicObject {
             Stock.getTaskRunner().serviceObjects.font,
             text
         );
+
         float x = (transform.position.x - layout.width/2);
         float y = (transform.position.y + layout.height/2);
+
+        if(anchorPoint.positionX==-1)x=(transform.position.x);
+        if(anchorPoint.positionX==1)x=(transform.position.x - layout.width);
+        if(anchorPoint.positionY==-1)y = (transform.position.y+layout.height);
+        if(anchorPoint.positionY==1)y = (transform.position.y);
 
         Stock.getTaskRunner().serviceObjects.font.draw(
             Stock.getTaskRunner().serviceObjects.batch,
