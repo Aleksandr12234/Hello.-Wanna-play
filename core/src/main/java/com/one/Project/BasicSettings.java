@@ -4,7 +4,6 @@ import com.one.Structure.Scenes.EmptyScene;
 import com.one.Structure.TestClasses.TestScene;
 
 public class BasicSettings {
-
     //имя проекта
     public static String getProjectName(){
         return "Stock";
