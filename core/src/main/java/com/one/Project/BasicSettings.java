@@ -14,7 +14,7 @@ public class BasicSettings {
         return false;
     }
 
-    //Размер окна
+    //Размер окна, если isFullScreen - false
     public static int[] getWindowSize(){
         return new int[]{800, 500};
     }

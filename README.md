@@ -22,8 +22,7 @@ eclipse.project.name = 'Structure' + '-parent'
 git remote set-url origin <URL_нового_репозитория>
 ```
 
-4) (Необязательно) Создать директорию core.src.main.java.com.one.Project 
-и начать в ней работать
+4) Проект лучше делать в директории "Project"
 
 ## Lwjgl3Launcher
 ```java
