@@ -13,29 +13,29 @@ public abstract class EmptyScene{
 
     public abstract void setup();
 
-    public void addObject(BasicObject object){
-        if(object==null)return;
-        layers.get("Basic").addObject(object);
-        Stock.getTaskRunner().scenesManager.isChangeObjects=true;
+    public <T extends BasicObject> T addObject(T object){
+        return addObject("Basic", object);
     }
 
-    public void addObject(String layer, BasicObject object){
-        if(object==null || layer==null)return;
+    public <T extends BasicObject> T addObject(String layer, T object){
+        if(object==null || layer==null)return null;
         if(!layers.containsKey(layer))layers.put(layer, new Layer());
         layers.get(layer).addObject(object);
         Stock.getTaskRunner().scenesManager.isChangeObjects=true;
+        return object;
     }
 
-    public void addObject(BasicObject undo, BasicObject object){
-        if(undo==null || object==null)return;
+    public <T extends BasicObject> T addObject(BasicObject undo, T object){
+        if(undo==null || object==null)return null;
         for(Layer i : layers.values()){
             if(i.objects.contains(undo)){
                 int index=i.objects.indexOf(undo);
                 i.addObject(index+1, object);
                 Stock.getTaskRunner().scenesManager.isChangeObjects=true;
-                return;
+                return object;
             }
         }
+        return null;
     }
 
     public void removeObject(BasicObject object){

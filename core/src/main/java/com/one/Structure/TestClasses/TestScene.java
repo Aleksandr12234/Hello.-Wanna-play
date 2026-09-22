@@ -13,6 +13,6 @@ public class TestScene extends EmptyScene {
         addObject(new TestPhysicRect(0, 0, 0.5f, 1, true));
         addObject(new TestPhysicRect(1, 1, 1, 0.5f, true));
         addObject(new TestPhysicRect(0, 0, 1, 1, false));
-        addObject(new TestControlRect(0, 0, 1f, 1f));
+        TestControlRect rect = addObject(new TestControlRect(0, 0, 1f, 1f));
     }
 }
