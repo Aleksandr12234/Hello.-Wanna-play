@@ -3,9 +3,10 @@ package com.one.Structure.Collision.Body;
 import com.badlogic.gdx.math.Vector2;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Collision.Figures.RectCollision;
+import lombok.Setter;
 
 public class RectPhysicalBody<T extends BasicObject> extends RectBody<T> {
-    private Vector2 direction=new Vector2();
+    @Setter private Vector2 direction=new Vector2();
     public float mass=1;
 
     public RectPhysicalBody(T master, boolean isStatic) {
@@ -44,10 +45,6 @@ public class RectPhysicalBody<T extends BasicObject> extends RectBody<T> {
         getMaster().getTransform().position.add(direction.x, direction.y);
 
         direction.set(0, 0);
-    }
-
-    public void setDirection(Vector2 direction){
-        this.direction=direction;
     }
 
     private Vector2 findVector(RectCollision<?> otherCollision){
