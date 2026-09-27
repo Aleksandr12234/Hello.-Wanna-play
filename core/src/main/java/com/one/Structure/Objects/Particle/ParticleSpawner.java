@@ -27,4 +27,8 @@ public class ParticleSpawner extends BasicObject {
             else if(countOfSpawn>-1)countOfSpawn--;
         }
     }
+
+    public static class ParticleSpawnerBuilder{
+        private ParticleSpawnerBuilder time(float time){return this;}
+    }
 }

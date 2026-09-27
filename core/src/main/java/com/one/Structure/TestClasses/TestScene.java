@@ -17,10 +17,10 @@ public class TestScene extends EmptyScene {
         TestControlRect rect = addObject(new TestControlRect(0, 0, 1f, 1f));
 
         {
-            addObject(ParticleSpawner.builder().spawnFunction(()->{
+            addObject(ParticleSpawner.builder().timeToSpawn(0.1f).spawnFunction(()->{
 
                 Stock.getTaskRunner().scenesManager
-                    .activeScene.addObject(Particle.builder().speed(new Vector2(1, 1)).timeToLife(5f).build());
+                    .activeScene.addObject(Particle.builder().speed(new Vector2(1, 1)).timeToLife(0.25f).build());
                 System.out.println("Object add");
             }).build());
         }

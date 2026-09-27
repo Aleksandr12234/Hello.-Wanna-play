@@ -13,6 +13,8 @@ public class Particle extends BasicObject {
     @Builder.Default
     Sprite sprite=new Sprite(Stock.getTaskRunner().assetsLoader.texture.loadTexture("test/Particle.png"));
 
+
+
     @Override
     public void doLogic() {
         timeToLife-=deltaTime;
