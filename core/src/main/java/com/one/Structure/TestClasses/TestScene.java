@@ -2,6 +2,7 @@ package com.one.Structure.TestClasses;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.one.Structure.Collision.Body.RectPhysicalBody;
 import com.one.Structure.Objects.Particle.Particle;
 import com.one.Structure.Objects.Particle.ParticleSpawner;
 import com.one.Structure.Scenes.EmptyScene;
@@ -23,11 +24,14 @@ public class TestScene extends EmptyScene {
                 Particle particle = Stock.getTaskRunner().scenesManager
                     .activeScene.addObject(new Particle().lifeTime(1f)
                         .startSpeed(new Vector2( -0.4f+0.8f*a, 4))
-                        .endSpeed(new Vector2((-0.2f+0.4f*a)/2f, a))
+                        .endSpeed(new Vector2((-0.2f+0.4f*a)/2f, -5))
                         .startColor(Color.YELLOW)
                         .endColor(Color.YELLOW)
-                        .startSize(new Vector2(0.1f, 0.1f))
-                        .endSize(new Vector2(0.1f*a, 0.1f*a)));
+                        .startSize(new Vector2(0.4f, 0.01f))
+                        .endSize(new Vector2(0.4f*a, 0.01f*a)));
+
+                particle.collision.isDispose=false;
+                particle.collision.classes.add(RectPhysicalBody.class);
             }).build());
         }
     }

@@ -14,7 +14,7 @@ public class Particle extends BasicObject {
 
     Sprite sprite=new Sprite(Stock.getTaskRunner().assetsLoader.texture.loadTexture("test/Particle.png"));
 
-    private final ParticleCollision collision=new ParticleCollision(this);
+    public final ParticleCollision collision=new ParticleCollision(this);
 
     public final Vector2 startSpeed=new Vector2();
     public final Vector2 endSpeed=new Vector2();
@@ -125,6 +125,11 @@ public class Particle extends BasicObject {
 
     public Particle endSize(float width, float height) {
         this.endSize.set(width, height);
+        return this;
+    }
+
+    public Particle sprite(String path){
+        sprite=new Sprite(Stock.getTaskRunner().assetsLoader.texture.loadTexture(path));
         return this;
     }
 }
