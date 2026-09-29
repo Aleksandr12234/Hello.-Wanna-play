@@ -23,7 +23,7 @@ public class Lwjgl3Launcher {
         configuration.setTitle(BasicSettings.getProjectName());
 
         //fps
-        configuration.setForegroundFPS(60);
+        configuration.setForegroundFPS(BasicSettings.getFPS());
 
         if(BasicSettings.isFullScreen()) {
             //Полный экран

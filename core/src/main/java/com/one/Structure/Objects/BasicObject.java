@@ -16,9 +16,6 @@ public class BasicObject {
 
     private ArrayList<Module<?>> modulesToSetup=new ArrayList<>();
 
-    /**
-     * Вызывается один раз после добавления объекта в сцену
-     */
     public void setup(){
         for (Module<?> i : modulesToSetup) {
             i.setup();
@@ -26,14 +23,8 @@ public class BasicObject {
         modulesToSetup=null;
     }
 
-    /**
-     * Используется для действий объекта, перед отрисовкой
-     */
     public void doLogic(){}
 
-    /**
-     * Используется для отрисовки объекта
-     */
     public void draw(){}
 
     public void onDispose(){}

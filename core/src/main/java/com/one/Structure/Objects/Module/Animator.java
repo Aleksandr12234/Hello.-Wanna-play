@@ -12,19 +12,19 @@ public class Animator<T extends BasicObject> extends Module<T>{
     public boolean isLoop=false;
     public boolean pause=false;
 
-    public Animator(T master, int widthOneSprite, int heightOneSprite, int countFrame, String path){
+    public Animator(T master, int widthOneSprite, int heightOneSprite, int startFrame, int countFrame, String path){
         super(master);
         sprites=Stock.getTaskRunner().assetsLoader.spriteList.loadSpriteList(
-            widthOneSprite, heightOneSprite, countFrame, path
+            widthOneSprite, heightOneSprite, startFrame, countFrame, path
         );
     }
 
     public Animator(T master, int widthOneSprite, int heightOneSprite, String path){
-        this(master, widthOneSprite, heightOneSprite, -1, path);
+        this(master, widthOneSprite, heightOneSprite,0, -1, path);
     }
 
     public Animator(T master, String path) {
-        this(master, -1, -1, -1, path);
+        this(master, -1, -1,0, -1, path);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Animator<T extends BasicObject> extends Module<T>{
     }
 
     public boolean isEnd(){
-        return currentFrame>= sprites.length;
+        return currentFrame>= sprites.length-1;
     }
 
     public int getCurrentFrame(){

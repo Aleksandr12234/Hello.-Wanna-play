@@ -15,7 +15,7 @@ public class Layer {
     public byte number=0;
     public boolean save=false;
 
-    boolean isActive=true, isDraw=true;
+    private boolean isActive=true, isDraw=true;
 
     public void changeActive(boolean isActive, boolean isDraw){
         for (BasicObject i : objects) {

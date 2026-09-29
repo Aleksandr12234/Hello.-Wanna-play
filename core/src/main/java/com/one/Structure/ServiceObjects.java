@@ -58,10 +58,6 @@ public class ServiceObjects extends Game {
         textureForShapes.dispose();
     }
 
-    /**
-     * Задать другой шрифт в зависимости от сцены
-     * path - путь в папке assets
-      */
     public void setFont(String path){
         font = new BitmapFont(Gdx.files.internal(path));
         font.getData().setScale(0.5f);

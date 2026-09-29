@@ -23,4 +23,9 @@ public class BasicSettings {
     public static EmptyScene getStartScene(){
         return new TestScene();
     }
+
+    //fps
+    public static int getFPS(){
+        return 60;
+    }
 }
