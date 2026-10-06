@@ -1,5 +1,6 @@
 package com.one.Structure.Objects.Module;
 
+import com.badlogic.gdx.math.Vector2;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Objects.BasicObjectComponents.Transform;
 
@@ -26,8 +27,10 @@ public class Module<T extends BasicObject> extends BasicObject {
     }
 
     public void updateGlobalPosition(){
-        transform.position.set(master.getTransform().position.x+localTransform.position.x,
-            master.getTransform().position.y+localTransform.position.y);
+        Vector2 updatePosition=new Vector2(localTransform.position);
+        updatePosition.rotateDeg(master.getTransform().rotate.getDegreesRotate());
+        transform.position.set(master.getTransform().position.x+updatePosition.x,
+            master.getTransform().position.y+updatePosition.y);
     }
 
     public void updateGlobalSize(){
