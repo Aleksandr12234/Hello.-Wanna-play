@@ -14,11 +14,10 @@ public class Logic {
 
         if(activeObjects==null)return;
 
-        //Можно будет разделить на потоки
         for (BasicObject i : activeObjects) {
             if (i.getStatus().dispose) {
                 i.onDispose();
-                Stock.getTaskRunner().scenesManager.activeScene.removeObject(i);
+                Stock.getTaskRunner().scenesManager.getActiveScene().removeObject(i);
                 continue;
             }
             if(i.getStatus().isActive)i.doLogic();

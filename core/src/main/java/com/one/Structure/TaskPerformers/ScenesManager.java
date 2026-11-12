@@ -3,26 +3,23 @@ package com.one.Structure.TaskPerformers;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Scenes.EmptyScene;
 import com.one.Structure.Stock;
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
 public class ScenesManager {
-    public EmptyScene activeScene;
-    private EmptyScene newScene;
-    private List<BasicObject> activeObjects=new ArrayList<>();
-    public boolean isChangeObjects=false;
+    @Getter private EmptyScene activeScene;
+    @Getter private List<BasicObject> activeObjects=new ArrayList<>();
 
-    public void changeActiveScene(EmptyScene newScene){
-        if(this.newScene==null)this.newScene=newScene;
-    }
+    private EmptyScene newScene;
+    public boolean isChangeObjects=false;
 
     public void update(){
         if(newScene!=null){
             Stock.getTaskRunner().assetsLoader.dispose();
             Stock.getTaskRunner().updateCollisions.dispose();
-            Stock.getTaskRunner().serviceObjects.camera.position.set(0, 0,
-                Stock.getTaskRunner().serviceObjects.camera.position.z);
+            Stock.getTaskRunner().updateCollisions.setup();
             if(activeScene!=null)activeScene.dispose();
             activeScene=newScene;
             activeScene.setup();
@@ -40,7 +37,7 @@ public class ScenesManager {
         }
     }
 
-    public List<BasicObject> getActiveObjects(){
-        return activeObjects;
+    public void changeActiveScene(EmptyScene newScene){
+        if(this.newScene==null)this.newScene=newScene;
     }
 }

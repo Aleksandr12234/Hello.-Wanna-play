@@ -11,16 +11,16 @@ public class Square extends BasicObject {
     public Square(float x, float y, float width, float height){
         transform.position.set(x, y);
         transform.size.set(width, height);
-        sprite=new Sprite(Stock.getTaskRunner().assetsLoader.texture.loadTexture("test/libgdx.png"));
+        sprite=new Sprite(Stock.getTaskRunner().assetsLoader.texture.loadTexture("Structure/test/libgdx.png"));
     }
 
     @Override
     public void draw() {
         sprite.setOriginCenter();
-        sprite.setRotation(transform.rotate.getDegreesRotate());
+        sprite.setRotation(transform.rotate.getDegreesAngle());
         sprite.setSize(transform.size.x,transform.size.y);
         sprite.setCenter(transform.position.x, transform.position.y);
 
-        sprite.draw(Stock.getTaskRunner().serviceObjects.batch);
+        sprite.draw(Stock.getTaskRunner().drawer.batch);
     }
 }

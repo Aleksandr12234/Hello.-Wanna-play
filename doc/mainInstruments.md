@@ -10,23 +10,10 @@ public static TaskRunner getTaskRunner(){
 
 ### TaskRunner
 ```java
-public final ServiceObjects serviceObjects; //Текст, фигуры и камера
 public final UserInput userInput=new UserInput(); //Ввод пользователя
 public final AssetsLoader assetsLoader =new AssetsLoader(); //Загрузчик текстур и звука
 public final ScenesManager scenesManager=new ScenesManager(); //Работа со сценами
 public final Drawer drawer=new Drawer(); //Работа с выводом на экран
-```
-
-#### ServiceObjects
-```java
-public SpriteBatch batch; //нужен в некоторых случаях для отрисовки
-public OrthographicCamera camera; //Для работы с камерой, Обязательно после работы вызывать функцию camera.update()
-public ExtendViewport viewport;// окно просмотра. По умолчанию 8x5 единиц 
-
-public ShapeDrawer shapeDrawer; //Для отрисовки фигур
-
-public BitmapFont font; //Отрисовка текста
-public void setFont(String path); //Изменить шрифт
 ```
 
 #### UserInput
@@ -45,10 +32,11 @@ public Vector3 getMousePosition(); //Позиция мыши (unproject вызв
 #### AssetsLoader
 
 ```java
-public final SpriteListLoader spriteList =new SpriteListLoader();//Загрузка спрайт листов
-public final MusicLoader music=new MusicLoader();//Загрузка музыки (длинных звуковых файлов)
-public final SoundLoader sound=new SoundLoader();//Загрузка звука (коротких звуковых файлов)
-public final TextureLoader texture=new TextureLoader();//Загрузка текстур
+public final SpriteLoader sprite =new SpriteLoader();//Спрайты
+public final MusicLoader music=new MusicLoader();//музыка
+public final SoundLoader sound=new SoundLoader();//звуки
+public final TextureLoader texture=new TextureLoader();//текстуры
+public final JsonLoader json=new JsonLoader();//Json файлы
 ```
 
 #### ScenesManager
@@ -60,6 +48,8 @@ public void changeActiveScene(EmptyScene newScene);//Сменить активн
 #### drawer
 ```java
 public PostProcessor postProcessor;//Пост обработка (по умолчанию выключена)
+public final SpriteBatch batch;//Для спрайтов
+public final ExtendViewport viewport;//вьпорт
 public void setBackgroundColor(float r, float g, float b);//Задать цвет заднего фона
 public void setDrawCollision(boolean drawCollision);//Рисовать ли коллизии
 ```

@@ -11,7 +11,6 @@ public class BasicObject {
     public void doLogic();//Выполняется до проверок коллизий и отрисовки
     public void draw();//Отрисовка объекта
     public void onDispose(){}//При удалении объекта
-    public void addModuleToSetup(Module<?> module);//Вызывает setup ещё и у объектов класса Module
 }
 ```
 Если в таком объекте понадобиться модуль, то можно использовать `Module<>()`
@@ -71,43 +70,15 @@ public class Particle extends BasicObject {
 }
 ```
 
-#### Коллизия частицы
-```java
-public class ParticleCollision extends RectBody<Particle> {
-    public boolean isDispose=true;//Уничтожать ли частицу при столкновении
-    public float reverseX=0.1f, reverseY=0.1f;//На что умножать скорость (в обратную сторону) при взаимодействии
-    public final List<Class<?>> classes=new ArrayList<>();//С какими классами взаимодействовать
-    // (Предполагается что все классы для взаимодействия наследуются от RectBody)
-}
-```
-
 ### Создатель частиц
 
 ```java
 @Builder
-public class ParticleSpawner extends BasicObject {
-    private float timeToSpawn;//Время между созданием частиц
-    @Builder.Default
-    private float countOfParticle=1;//Количество вызова spawnFunction, когда прошло время
-    @Builder.Default
-    private float countOfSpawn=-1;//Количество цикла (прошло время - спавн частицы), "-1" - бесконечно 
-    private SpawnFunction spawnFunction;//Предполагается что будет лямбда функция с описанием какую частицу создавать
+public class ParticleSpawner <T extends BasicObject> extends Module<T> {
+    public boolean pause=false;//Пауза в создании
+    public float timeToSpawn;//Время между созданием частиц
+    public int countOfParticle=1;//Количество вызова spawnFunction, когда прошло время
+    public int countOfSpawn=-1;//Количество итераций цикла (прошло время - спавн частицы), "-1" - бесконечно 
+    public SpawnFunction spawnFunction;//Предполагается что будет лямбда функция с описанием какую частицу создавать
 }
-```
-
-## Анимации
-
-```java
-public class Animator<T extends BasicObject> extends Module<T>{
-    public float timeOnFrame=0.2f; //Время сколько отображается кадр
-    public boolean isLoop=false; //Является ли зацикленным
-    public boolean pause=false; //Пауза
-
-    public void reset();//Начать производить анимацию с начала
-
-    public boolean isEnd();//Закончилась ли анимация (true, если она на последнем кадре)
-
-    public int getCurrentFrame();//На каком кадре анимация
-}
-
 ```

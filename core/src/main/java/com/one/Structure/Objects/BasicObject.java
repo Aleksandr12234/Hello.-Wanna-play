@@ -1,8 +1,10 @@
 package com.one.Structure.Objects;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.one.Structure.Objects.BasicObjectComponents.StatusInfo;
 import com.one.Structure.Objects.BasicObjectComponents.Transform;
-import com.one.Structure.Objects.Module.Module;
+import com.one.Structure.Stock;
+import lombok.Getter;
 
 import java.util.ArrayList;
 
@@ -11,33 +13,37 @@ import java.util.ArrayList;
  */
 public class BasicObject {
     public static float deltaTime;
-    protected StatusInfo status=new StatusInfo();
-    protected Transform transform = new Transform();
 
-    private ArrayList<Module<?>> modulesToSetup=new ArrayList<>();
+    @Getter protected StatusInfo status=new StatusInfo();
+    @Getter protected Transform transform = new Transform();
+
+    private final ArrayList<Module<?>> modules = new ArrayList<>();
 
     public void setup(){
-        for (Module<?> i : modulesToSetup) {
+        for (Module<?> i : modules) {
             i.setup();
         }
-        modulesToSetup=null;
     }
 
-    public void doLogic(){}
-
-    public void draw(){}
-
-    public void onDispose(){}
-
-    public Transform getTransform() {
-        return transform;
+    public void doLogic(){
+        for (Module<?> i : modules) {
+            i.doLogic();
+        }
     }
 
-    public StatusInfo getStatus(){
-        return status;
+    public void draw(){
+        for (Module<?> i : modules) {
+            i.draw();
+        }
     }
 
-    public void addModuleToSetup(Module<?> module){
-        modulesToSetup.add(module);
+    public void onDispose(){
+        for (Module<?> i : modules) {
+            i.onDispose();
+        }
+    }
+
+    public void addModule(Module<?> module){
+        modules.add(module);
     }
 }

@@ -39,9 +39,9 @@ public class Layer {
     }
 
     public void addChildLayer(String layerName){
-        if(!Stock.getTaskRunner().scenesManager.activeScene.layers.containsKey(layerName))return;
+        if(!Stock.getTaskRunner().scenesManager.getActiveScene().layers.containsKey(layerName))return;
 
-        Layer layer=Stock.getTaskRunner().scenesManager.activeScene.layers.get(layerName);
+        Layer layer=Stock.getTaskRunner().scenesManager.getActiveScene().layers.get(layerName);
         if(masterLayers.contains(layer))return;
 
         childLayers.add(layer);
@@ -50,9 +50,9 @@ public class Layer {
     }
 
     public void removeChildLayer(String layerName){
-        if(!Stock.getTaskRunner().scenesManager.activeScene.layers.containsKey(layerName))return;
+        if(!Stock.getTaskRunner().scenesManager.getActiveScene().layers.containsKey(layerName))return;
 
-        Layer layer=Stock.getTaskRunner().scenesManager.activeScene.layers.get(layerName);
+        Layer layer=Stock.getTaskRunner().scenesManager.getActiveScene().layers.get(layerName);
         layer.masterLayers.remove(this);
         childLayers.remove(layer);
     }

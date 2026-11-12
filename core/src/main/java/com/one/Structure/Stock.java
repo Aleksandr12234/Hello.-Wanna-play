@@ -2,28 +2,24 @@ package com.one.Structure;
 
 import com.badlogic.gdx.Screen;
 import com.one.Project.BasicSettings;
-import com.one.Structure.TaskPerformers.*;
+import lombok.Getter;
 
 public class Stock implements Screen {
-    private static TaskRunner taskRunner;
+    @Getter private static TaskRunner taskRunner;
 
-    public Stock(ServiceObjects serviceObjects){
-        taskRunner = new TaskRunner(serviceObjects);
+    public Stock(){
+        taskRunner = new TaskRunner();
         taskRunner.scenesManager.changeActiveScene(BasicSettings.getStartScene());
-    }
-
-    public static TaskRunner getTaskRunner(){
-        return taskRunner;
     }
 
     @Override
     public void render(float v) {
-        taskRunner.update();
+        taskRunner.update(v);
     }
 
     @Override
     public void resize(int i, int i1) {
-        taskRunner.serviceObjects.viewport.update(i, i1);
+        taskRunner.drawer.viewport.update(i, i1);
     }
 
     @Override

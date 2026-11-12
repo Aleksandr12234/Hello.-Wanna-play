@@ -43,29 +43,15 @@ private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
 
 ```java
 public class BasicSettings {
-    //имя проекта
-    public static String getProjectName(){
-        return "Stock";
-    }
-
-    //Полный экран
-    public static boolean isFullScreen(){
-        return false;
-    }
-
-    //Размер окна, если isFullScreen - false
-    public static int[] getWindowSize(){
-        return new int[]{800, 500};
-    }
+    public static final String PROJECT_NAME="Structure"; //Название
+    public static final boolean IS_FULLSCREEN=false; //Полный ли экран
+    public static final int[] WINDOW_SIZE=new int[]{800, 500}; //Размер окна (если не включен полный экран)
+    public static final int[] VIEWPORT=new int[]{8, 5}; //Размер Viewport
+    public static final int FPS=60; //fps
 
     //начальная сцена
     public static EmptyScene getStartScene(){
-        return new TestScene();
-    }
-    
-    //fps
-    public static int getFPS(){
-        return 60;
+        return new DefaultDevelopScene();
     }
 }
 ```

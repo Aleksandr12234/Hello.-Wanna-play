@@ -3,11 +3,13 @@ package com.one.Structure.TaskPerformers;
 import com.badlogic.gdx.graphics.Color;
 import com.one.Structure.Stock;
 import com.one.Structure.TaskPerformers.DebugInstruments.DebugTaskLine;
+import com.one.Structure.TaskPerformers.DebugInstruments.Figure;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Debug {
+    public static Figure figure=new Figure();
     static List<DebugTaskLine> taskLines=new ArrayList<>();
 
     public static void drawLine(float x1, float y1, float x2, float y2){
@@ -16,8 +18,8 @@ public class Debug {
 
     public static void drawTask(){
         for (DebugTaskLine i : taskLines) {
-            Stock.getTaskRunner().serviceObjects.shapeDrawer.line(i.x1, i.y1, i.x2, i.y2);
-            Stock.getTaskRunner().serviceObjects.shapeDrawer.filledCircle(i.x2, i.y2, 0.025f, Color.CYAN);
+            figure.shapeDrawer.line(i.x1, i.y1, i.x2, i.y2);
+            figure.shapeDrawer.filledCircle(i.x2, i.y2, 0.025f, Color.CYAN);
         }
         taskLines.clear();
     }
