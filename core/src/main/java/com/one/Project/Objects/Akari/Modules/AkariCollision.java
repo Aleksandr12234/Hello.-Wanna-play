@@ -17,6 +17,7 @@ public class AkariCollision extends BasicBody<Akari> {
         super.setup();
         body.setFixtureDef(new FixtureDefBuilder().setShape(new RectShapeBuilder()
             .setLocalSize(transform.size.x, transform.size.y).build()).build());
+        body.body.setTransform(transform.position, 0);
     }
 
     @Override
