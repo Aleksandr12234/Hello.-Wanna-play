@@ -1,0 +1,9 @@
+{
+  "name": "testSword",
+  "damage": 1,
+  "stun": 1,
+  "position": [1, 0],
+  "size": [1, 1],
+  "akariStun": 0.5,
+  "isFirearms": false
+}

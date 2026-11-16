@@ -4,8 +4,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.one.Project.Objects.Akari.Modules.AkariCollision;
 import com.one.Project.Objects.Akari.Modules.AkariLegs;
-import com.one.Project.Objects.Weapon.Projectile;
-import com.one.Project.Objects.Weapon.damageArea;
+import com.one.Project.Objects.Projectile.Projectile;
+import com.one.Project.Objects.Projectile.damageArea;
 import com.one.Structure.Objects.BasicObject;
 import com.one.Structure.Stock;
 

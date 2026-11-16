@@ -1,4 +1,4 @@
-package com.one.Project.Objects.Weapon;
+package com.one.Project.Objects.Projectile;
 
 import com.one.Structure.Collision.BasicBody;
 import com.one.Structure.Collision.Builders.BodyDefBuilder;

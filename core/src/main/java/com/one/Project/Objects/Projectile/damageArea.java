@@ -1,4 +1,4 @@
-package com.one.Project.Objects.Weapon;
+package com.one.Project.Objects.Projectile;
 
 import com.badlogic.gdx.math.Vector2;
 
