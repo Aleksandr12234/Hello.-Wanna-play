@@ -1,11 +1,12 @@
 {
   "name": "testGun",
-  "damage": 1,
-  "stun": 1,
-  "position": [1, 0],
-  "size": [1, 1],
-  "akariStun": 0.5,
-  "isFirearms": true,
-  "bulletSpeed": 1,
-  "ArmorPenetration": 5
+  "type": "gun",
+  "lvl": 1,
+  "durability": 3,
+  "damageOnTrow": 1,
+  "timeToEnemyStunOnThrow": 1,
+  "timeToAkariStunOnThrow": 1,
+  "speedOnThrow": 1,
+  "sizeOnThrow": [0.5, 0.5],
+  "penetrationOnThrow": 1
 }
